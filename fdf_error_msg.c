@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   fdf_error_msg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/05 22:15:06 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/06 20:48:01 by yenyilma         ###   ########.fr       */
+/*   Created: 2025/01/06 20:38:01 by yenyilma          #+#    #+#             */
+/*   Updated: 2025/01/06 20:39:39 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	valid_map(const char *mapname)
+void	error_exit(const char *msg)
 {
-	int	len;
-
-	len = ft_strlen(mapname);
-	if (len < 5)
-		return (0);
-	mapname += len - 4;
-	return (ft_strncmp(mapname, ".fdf", 4) == 0);
+	ft_printf("Error\n%s\n", msg);
+	exit(1);
 }
 
-void	ft_free_split(void **split, size_t len)
+void	error_map(int fd, t_map *map, const char *msg)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < len && split[i] != NULL)
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
+	close(fd);
+	free(map);
+	error_exit(msg);
 }

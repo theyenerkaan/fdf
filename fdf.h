@@ -6,17 +6,18 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/05 22:25:42 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/06 22:20:33 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include "mlx/include/MLX42/MLX42.h"
-# include "libft/libft.h"
-# include "printf/ft_printf.h"
 # include "get_next_line/get_next_line.h"
+# include "mlx/include/MLX42/MLX42.h"
+# include "printf/ft_printf.h"
+# include "libft/libft.h"
+# include <fcntl.h>
 
 # define WIDTH				1919
 # define HEIGHT				1010
@@ -43,8 +44,8 @@ typedef struct s_map
 	int				rows;
 	int				cols;
 	int				high;
-	int				low;
-	bool			use_zcolor;
+	int				deep;
+	bool			use_color;
 	double			x_offset;
 	double			y_offset;
 	double			interval;
@@ -68,6 +69,11 @@ typedef struct s_fdf
 
 int		valid_map(const char *mapname);
 void	error_exit(const char *msg);
-
+void	set_size(int fd, t_map *map);
+void	error_map(int fd, t_map *map, const char *msg);
+int		ft_max(int a, int b);
+int		ft_min(int a, int b);
+void	ft_free_split(void **split, size_t len);
+void	set_map(int fd, t_map *map);
 #endif
  
