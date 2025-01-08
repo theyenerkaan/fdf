@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:23:11 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/08 07:28:53 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/08 08:09:35 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	set_point(t_mpoint *point, char *value, int i, int j,
 	point->x = (double)j * map->interval - x_offset;
 	point->y = (double)i * map->interval - y_offset;
 	point->z = z_value;
-	point->color = parse_color(0, map, value);
+	point->mapcolor = parse_color(0, map, value);
 
 	map->high = ft_max(map->high, z_value);
 	map->deep = ft_min(map->deep, z_value);
@@ -69,7 +69,7 @@ void	set_map(int fd, t_map *map)
 		split = ft_split(line, ' ');
 		if (!split)
 			error_map(fd, map, "Failed to allocate memory for line");
-		// colunm fonk yazdır
+		set_columns(fd, map, split, i);
 		free(tmp);
 		free(line);
 		ft_free_split((void **)split, map->cols);

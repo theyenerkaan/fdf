@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/08 05:28:38 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/08 09:10:43 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,11 @@ int		ft_min(int a, int b);
 void	ft_free_split(void **split, size_t len);
 void	set_map(int fd, t_map *map);
 void	set_color(t_map *map);
+int		parse_color(int fd, t_map *map, char *value);
+void	set_point(t_mpoint *point, char *value, int i, int j,
+					t_map *map, int x_offset, int y_offset);
+void	set_columns(int fd, t_map *map, char **split, int i);
 
+void	set_menu(mlx_t *mlx);
 #endif
  
