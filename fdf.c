@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:04 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/06 22:21:27 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/08 05:28:44 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static t_map	*parse_map(char *mapname)
 		error_map(fd, map, "Failed to open map file");
 	set_map(fd, map);
 	close(fd);
-	// renkleri ayarlamak için fonk yaz buraya
+	set_color(map);
 	return (map);
 	
 }

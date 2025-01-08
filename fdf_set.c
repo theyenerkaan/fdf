@@ -6,11 +6,49 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:23:11 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/06 22:14:11 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/08 07:28:53 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	set_point(t_mpoint *point, char *value, int i, int j,
+					t_map *map, int x_offset, int y_offset)
+{
+	double	z_value;
+
+	z_value = (double)ft_atoi(value) * map->interval;
+	point->x = (double)j * map->interval - x_offset;
+	point->y = (double)i * map->interval - y_offset;
+	point->z = z_value;
+	point->color = parse_color(0, map, value);
+
+	map->high = ft_max(map->high, z_value);
+	map->deep = ft_min(map->deep, z_value);
+}
+
+void	set_columns(int fd, t_map *map, char **split, int i)
+{
+	int			j;
+	int			x_offset;
+	int			y_offset;
+
+	x_offset = (map->cols - 1) * map->interval / 2;
+	y_offset = (map->rows - 1) * map->interval / 2;
+	j = 0;
+	while (split[j])
+	{
+		if (!ft_isdigit(*split[j]) && *split[j] != '-')
+			error_map(fd, map, "Invalid map");
+		set_point(&(map->mgrid[i][j]), split[j], i, j, map, x_offset, y_offset);
+		j++;
+	}
+	if (i == 0)
+		map->cols = j;
+	else if (map->cols != j)
+		error_map(fd, map, "Invalid map");
+}
+
 
 void	set_map(int fd, t_map *map)
 {
@@ -78,8 +116,9 @@ void	set_size(int fd, t_map *map)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
+		map->rows++;
 		if (map->cols != get_line(fd, map, line))
 			error_map(fd, map, "Invalid map");
-		map->rows++;
 	}
 }
+

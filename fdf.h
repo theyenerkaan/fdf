@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/06 22:20:33 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/08 05:28:38 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,20 @@
 # include "libft/libft.h"
 # include <fcntl.h>
 
-# define WIDTH				1919
-# define HEIGHT				1010
+# define WIDTH			1919
+# define HEIGHT			1010
+
+#define COLOR_1			0x2841BF
+#define COLOR_2			0x2B40BA
+#define COLOR_3			0x2E40B4
+#define COLOR_4			0x313FAF
+#define COLOR_5			0x353FAA
+#define COLOR_6			0x383FA5
+#define COLOR_7			0x3B3EA0
+#define COLOR_8			0x3E3E9A
+#define COLOR_9			0x423D95
+#define COLOR_10		0x453D90
+#define COLOR_11		0x483D8B
 
 typedef struct s_mpoint
 {
@@ -75,5 +87,7 @@ int		ft_max(int a, int b);
 int		ft_min(int a, int b);
 void	ft_free_split(void **split, size_t len);
 void	set_map(int fd, t_map *map);
+void	set_color(t_map *map);
+
 #endif
  
