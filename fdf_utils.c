@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 22:15:06 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/08 09:10:13 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/09 21:39:17 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	set_menu(mlx_t *mlx)
 
 	x = 20;
 	y = 20;
-	mlx_put_string(mlx, "CONTROLS", x, y);
+	mlx_put_string(mlx, "keys and functions", x, y);
 	mlx_put_string(mlx, "Colour\t\t\t\t\t\t\t\tc", x, y += 35);
 	mlx_put_string(mlx, "Zoom\t\t\t\t\t\t\t\t\t\tmouse scroll or -+", x, y += 20);
 	mlx_put_string(mlx, "Translate\t\t\t\t\tarrow keys", x, y += 20);

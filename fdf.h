@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/08 09:10:43 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/09 22:16:41 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define WIDTH			1919
 # define HEIGHT			1010
 
+#define BACKGROUND		0x000000
 #define COLOR_1			0x2841BF
 #define COLOR_2			0x2B40BA
 #define COLOR_3			0x2E40B4
@@ -92,7 +93,20 @@ int		parse_color(int fd, t_map *map, char *value);
 void	set_point(t_mpoint *point, char *value, int i, int j,
 					t_map *map, int x_offset, int y_offset);
 void	set_columns(int fd, t_map *map, char **split, int i);
-
 void	set_menu(mlx_t *mlx);
+void	map_view(void *view);
+void	rotate_view(void *view);
+void	zoom_view(int x, int y, void *view);
+void	default_view(t_map *map);
+void	image_view(void *view);
+void	draw_background(t_map *img, int color);
+void	projection(t_map *map, int i, int j);
+void	draw_line(t_fdf *fdf, int x, int y);
+void	x_location(double *y, double *z, double alpha);
+void	y_location(double *x, double *z, double beta);
+void	z_location(double *x, double *y, double gamma);
+
+
+
 #endif
  
