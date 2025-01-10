@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/09 22:16:41 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/10 21:01:37 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	error_map(int fd, t_map *map, const char *msg);
 int		ft_max(int a, int b);
 int		ft_min(int a, int b);
 void	ft_free_split(void **split, size_t len);
+void	free_map(t_map *map);
 void	set_map(int fd, t_map *map);
 void	set_color(t_map *map);
 int		parse_color(int fd, t_map *map, char *value);

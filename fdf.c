@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:04 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/09 20:54:39 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/10 21:00:46 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,4 +130,8 @@ int	main(int ac, char **av)
 	mlx_loop_hook(fdf->mlx, &rotate_view, fdf);
 	mlx_loop_hook(fdf->mlx, &zoom_view, fdf);
 	mlx_loop_hook(fdf->mlx, &image_view, fdf);
+	mlx_loop(fdf->mlx);
+	mlx_terminate(fdf->mlx);
+	free_map(fdf->map);
+	return (0);
 }
