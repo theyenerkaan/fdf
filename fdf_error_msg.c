@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:38:01 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/09 22:30:07 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:43:38 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ void	error_map(int fd, t_map *map, const char *msg)
 	free(map);
 	error_exit(msg);
 }
-void	draw_background(mlx_image_t *img, int color)
+void	draw_background(t_fdf *base, int color)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (y < img->height)
+	while (y < base->img->height)
 	{
 		x = 0;
-		while (x < img->width)
+		while (x < base->img->width)
 		{
-			mlx_pixel_put(img, x, y, color);
+			mlx_pixel_put(base->mlx, base->win, x, y, color);
 			x++;
 		}
 		y++;
@@ -71,7 +71,11 @@ void	draw_line(t_fdf *fdf, int x, int y)
 	if(y + 1 < fdf->map->rows)
 	{
 		projection(fdf->map, y + 1, x);
-		
+		two_points_draw_line(fdf->img, fdf->map->grid[y][x], fdf->map->grid[y + 1][x]);
 	}
-	
+	if(x + 1 < fdf->map->cols)
+	{
+		projection(fdf->map, y, x + 1);
+		two_points_draw_line(fdf->img, fdf->map->grid[y][x], fdf->map->grid[y][x + 1]);
+	}
 }

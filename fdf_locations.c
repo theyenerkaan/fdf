@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 22:08:09 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/10 21:00:04 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/12 20:40:37 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	choise_color(t_point instant, t_point a, t_point b)
 }
 
 
-void two_points_draw_line(mlx_image_t *view, t_point a, t_point b)
+void two_points_draw_line(t_mlx_image *view, t_point a, t_point b)
 {
     int point[2];
     t_point instant;

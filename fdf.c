@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:04 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/10 21:00:46 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/12 20:40:37 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	filling_map(t_map *map)
 {
 	map->rows = 0;
 	map->cols = 0;
-	map->high = INTMAX_MAX;
-	map->deep = INTMAX_MIN;
+	map->high = INT_MAX;
+	map->deep = INT_MIN;
 	map->use_color = false;
 	map->x_offset = WIDTH / 2;
 	map->y_offset = HEIGHT / 2;
@@ -119,8 +119,8 @@ int	main(int ac, char **av)
 		error_exit("Usage: ./fdf <map.fdf>");
 	fdf = init_prog(av[1]);
 	set_menu(fdf->mlx); //bak buna
-	draw_img(fdf);
-	if(mlx_image_to_window(fdf->mlx, fdf->img, 0, 0) == -1)
+	image_view(fdf);
+	if(t_mlx_imageo_window(fdf->mlx, fdf->img, 0, 0) == -1)
 	{
 		free_map(fdf->map);
 		mlx_close_window(fdf->mlx);
