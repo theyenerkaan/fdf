@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:04 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/15 06:24:19 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:07:05 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int	main(int ac, char **av)
 	if (ac != 2 || !valid_map(av[1]))
 		error_exit("Usage: ./fdf <map.fdf>");
 	fdf = init_prog(av[1]);
+	fdf->win = mlx_new_window(fdf->mlx, WIDTH, HEIGHT, "the fdf of Y   K   Y ' s");
 	clear_keys(fdf->keys, 0);
 	mlx_hook(fdf->win, 2, 1L<<0, &key_press, fdf);
 	mlx_hook(fdf->win, 3, 1L<<1, &key_release, fdf);

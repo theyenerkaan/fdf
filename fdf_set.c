@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:23:11 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/15 06:52:21 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/15 17:49:40 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	set_map(int fd, t_map *map)
 		free(tmp);
 		free(line);
 		ft_free_split((void **)split, map->cols);
+		i++;
 	}
 	
 }
