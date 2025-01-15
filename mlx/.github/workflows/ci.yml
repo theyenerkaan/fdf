@@ -1,11 +1,4 @@
-# -----------------------------------------------------------------------------
-# Codam Coding College, Amsterdam @ 2022-2023-2023 by W2Wizard.
-# See README in the root project for more information.
-# -----------------------------------------------------------------------------
-
 name: Build
-
-#=============================================================================#
 
 on:
   push:
@@ -13,66 +6,83 @@ on:
   pull_request:
     branches: [ master ]
 
-#=============================================================================#
-
 jobs:
+  build:
 
-# Tests
-#=============================================================================#
-
-  unit-test:
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    needs: build
+    runs-on: ${{ matrix.os }}
     env:
       DISPLAY: ":99"
-
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v3
-
-      - name: Install Dependencies
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq xorg-dev xvfb
-
-      - name: Setup virtual screen
-        run: Xvfb $DISPLAY -screen 0 1280x1024x24 &
-
-      - name: Build MLX42 & tests
-        run: cmake -DBUILD_TESTS=YES -B ${{github.workspace}}/build && cmake --build ${{github.workspace}}/build --parallel
-
-      - name: Run tests
-        run: ctest --output-on-failure --test-dir ${{github.workspace}}/build
-# Unix
-#=============================================================================#
-
-  build:
-    timeout-minutes: 10
-    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest]
 
+    timeout-minutes: 20
     steps:
-    - name: Clone repository
-      uses: actions/checkout@v3
-
-    # Windows will just fetch glfw with cmake automatically.
-    # This avoids doing extra work like installing a package manager.
-    - name: Install Dependencies
-      if: matrix.os != 'windows-latest'
+    - uses: actions/checkout@v2
+    - name: Install mlx dependencies
       run: |
         set -x
         if [ "$RUNNER_OS" == "Linux" ]; then
             sudo apt-get update -qq
-            sudo apt-get install -y -qq xorg-dev
+            sudo apt-get install -y -qq gcc make xorg libxext-dev libbsd-dev
         elif [ "$RUNNER_OS" == "macOS" ]; then
-            brew update
-            brew install glfw
+            brew install xquartz
+            echo "/usr/X11/bin" >> $GITHUB_PATH
+        else
+            echo "$RUNNER_OS not supported"
+            exit 1
         fi
+    - name: Setup x11 headless testing environment
+      run: |
+        set -x
+        if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt-get install xvfb xdotool valgrind
+            Xvfb $DISPLAY -screen 0 1280x1024x24 &
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+            brew install xdotool
+            defaults write org.x.X11 enable_test_extensions -boolean true
+            sudo Xvfb $DISPLAY -screen 0 1280x1024x24 &           
+        else
+            echo "$RUNNER_OS not supported"
+            exit 1
+        fi
+    - name: Run ./configure
+      run: ./configure
 
-    - name: Build
-      run: cmake -B build && cmake --build build --parallel
+    - name: make check Linux
+      if: matrix.os == 'ubuntu-latest'
+      run: make -f Makefile.gen check
+    - name: make check MacOS
+      continue-on-error: true
+      if: matrix.os == 'macos-latest'
+      run: make -f Makefile.gen check
+      # Didn't find a way to simulate inputs on Macos. libxdo seem to no longer work on macos.
+      # It can be partially fixed writing proper unit-tests, thus avoiding the need of libxdo.
 
-#=============================================================================#
+    - name: Check leaks from binary "test/mlx-test"
+      run: |
+        cd test
+        if [ "$RUNNER_OS" == "Linux" ]; then
+            echo "Info: Still reachable doesn't matter. Valgrind will return success on thoses reports.
+              It is fine, we searching for lost pointers. Valgrind will return exit status 42 if any block is lost."
+            valgrind --leak-check=full --show-leak-kinds=definite,indirect,possible --errors-for-leak-kinds=definite,indirect,possible --error-exitcode=42 ./mlx-test > /dev/null &
+            PID=$!
+            sleep 30
+            xdotool search --name Title3 windowfocus key Escape
+            xdotool search --name Title2 windowfocus key Escape
+            wait $PID
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+            MallocStackLoggingNoCompact=1
+            ./mlx-test &
+            sleep 30
+            leaks mlx-test
+            pkill mlx-test
+        fi
+ 
+    - name: Norminette, just for fun
+      continue-on-error: true
+      run: |
+        pip3 install Norminette
+        norminette *.c *.h
+        norminette --version

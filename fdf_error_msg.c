@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:38:01 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/13 22:43:38 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/15 06:49:14 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	draw_background(t_fdf *base, int color)
 	int	y;
 
 	y = 0;
-	while (y < base->img->height)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < base->img->width)
+		while (x < WIDTH)
 		{
 			mlx_pixel_put(base->mlx, base->win, x, y, color);
 			x++;
@@ -66,16 +66,16 @@ void	projection(t_map *map, int y, int x)
 
 void	draw_line(t_fdf *fdf, int x, int y)
 {
-	if (x == 0 && y == 0)
-		projection(fdf->map, y, x);
-	if(y + 1 < fdf->map->rows)
-	{
-		projection(fdf->map, y + 1, x);
-		two_points_draw_line(fdf->img, fdf->map->grid[y][x], fdf->map->grid[y + 1][x]);
-	}
-	if(x + 1 < fdf->map->cols)
-	{
-		projection(fdf->map, y, x + 1);
-		two_points_draw_line(fdf->img, fdf->map->grid[y][x], fdf->map->grid[y][x + 1]);
-	}
+    if (x == 0 && y == 0)
+        projection(fdf->map, y, x);
+    if (y + 1 < fdf->map->rows)
+    {
+        projection(fdf->map, y + 1, x);
+        two_points_draw_line(fdf, fdf->map->grid[y][x], fdf->map->grid[y + 1][x]);
+    }
+    if (x + 1 < fdf->map->cols)
+    {
+        projection(fdf->map, y, x + 1);
+        two_points_draw_line(fdf, fdf->map->grid[y][x], fdf->map->grid[y][x + 1]);
+    }
 }

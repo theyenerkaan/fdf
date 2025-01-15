@@ -6,7 +6,7 @@
 #    By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 19:15:35 by yenyilma          #+#    #+#              #
-#    Updated: 2025/01/05 19:16:04 by yenyilma         ###   ########.fr        #
+#    Updated: 2025/01/15 01:05:44 by yenyilma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,30 +16,18 @@
 
 NAME                =   fdf
 HEADER              =   fdf.h
-B_HEADER            =   fdf.h
 CC                  =   cc
 CFLAGS              =   -Wall -Werror -Wextra -g
 LIBFT               =   libft/libft.a
 LIBFTDIR            =   libft
 PRINTF              =   printf/libftprintf.a
 PRINTFDIR           =   printf
-GNL                 =   get_next_line/get_next_line
+GNL                 =   get_next_line/get_next_line.a
 GNLDIR              =   get_next_line
 
-SRC                 =   push_swap.c data_parser.c ft_lstsort.c ft_stackclear.c ft_stacknew.c \
-						ft_stackpop.c ft_stackpush.c help.c operation.c push_operations.c \
-						r_rotate_operations.c rotate_operations.c stack_help.c \
-						swap_operations.c target.c transaction.c ft_atol.c
-
-B_SRC               =   checker_bonus.c data_parser_bonus.c ft_lstsort_bonus.c ft_stackclear_bonus.c \
-						ft_stacknew_bonus.c ft_stackpop_bonus.c ft_stackpush_bonus.c help_bonus.c \
-						operation_bonus.c push_operations_bonus.c r_rotate_operations_bonus.c \
-						rotate_operations_bonus.c stack_help_bonus.c swap_operations_bonus.c \
-						target_bonus.c transaction_bonus.c ft_atol_bonus.c
+SRC                 =   fdf.c fdf_error_msg.c fdf_map.c fdf_set.c fdf_utils.c fdf_set_color.c
 
 OBJ                 =   $(SRC:.c=.o)
-B_OBJ               =   $(B_SRC:.c=.o)
-
 ###############################################
 #                 COLORS                       #
 ###############################################
@@ -67,40 +55,20 @@ COLOR_RESET         =   \033[0m
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(PRINTF) $(OBJ) $(HEADER)
-	@$(CC) $(OBJ) $(LIBFT) $(PRINTF) -o $(NAME)
-	@echo "$(COLOR_LIGHT_PURPLE)✔ push_swap successfully compiled...$(COLOR_RESET)"
+$(NAME): $(LIBFT) $(PRINTF) $(GNL) $(OBJ) $(HEADER)
+	$(CC) $(OBJ) $(LIBFT) $(PRINTF) $(GNL) -o $(NAME)
 
 %.o: %.c $(HEADER)
-	@$(CC) $(CFLAGS) -I $(LIBFTDIR) -I $(PRINTFDIR) -c $< -o $@
-	@echo "$(COLOR_LIGHT_GREEN)compiling $<...$(COLOR_RESET)"
+	$(CC) $(CFLAGS) -I $(LIBFTDIR) -I $(PRINTFDIR) -I $(GNLDIR) -c $< -o $@
 
-$(LIBFT): $(LIBFTDIR)
-	@make bonus -C libft > /dev/null 2>&1
+$(LIBFT):
+	$(MAKE) -C $(LIBFTDIR)
 
-$(LIBFTDIR):
-	@echo "$(COLOR_BOLD_CYAN)🌀 cloning libft repository...$(COLOR_RESET)"
-	@echo "$(COLOR_CYAN)"
-	@git clone git@github.com:theyenerkaan/libft.git libft
-	@echo "$(COLOR_RESET)"
+$(PRINTF):
+	$(MAKE) -C $(PRINTFDIR)
 
-$(PRINTF): $(PRINTFDIR)
-	@make -C printf > /dev/null 2>&1
-
-$(PRINTFDIR):
-	@echo "$(COLOR_BOLD_CYAN)🌀 cloning printf repository...$(COLOR_RESET)"
-	@echo "$(COLOR_CYAN)"
-	@git clone git@github.com:theyenerkaan/printf.git printf
-	@echo "$(COLOR_RESET)"
-
-$(GNL): $(GNLDIR)
-	@make -C get_next_line > /dev/null 2>&1
-
-$(GNLDIR):
-	@echo "$(COLOR_BOLD_CYAN)🌀 cloning get_next_line repository...$(COLOR_RESET)"
-	@echo "$(COLOR_CYAN)"
-	@git clone git@github.com:theyenerkaan/get_next_line_true.git get_next_line
-	@echo "$(COLOR_RESET)"
+$(GNL):
+	$(MAKE) -C $(GNLDIR)
 
 update:
 	@echo "$(COLOR_BOLD_CYAN)🌀 updating all repositories...$(COLOR_RESET)"

@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:23:11 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/12 19:42:03 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/15 06:52:21 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ void	set_map(int fd, t_map *map)
 	
 }
 
-static int	get_line(int fd, t_map *map, char line)
+static int	get_line(int fd, t_map *map, char *line)
 {
-	char *tmp;
-	char **split;
-	int i;
+	char 	*tmp;
+	char 	**split;
+	int 	i;
 
 	i = 0;
 	tmp = ft_strtrim(line, "\n");
@@ -107,7 +107,7 @@ void	set_size(int fd, t_map *map)
 	line = get_next_line(fd);
 	if (!line)
 		error_map(fd, map, "Failed to read map file");
-	map->cols = get_line(fd, line, ' ');
+	map->cols = get_line(fd, map, line);
 	if(map->cols == 0)
 		error_map(fd, map, "Invalid map");
 	map->rows = 1;

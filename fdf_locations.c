@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 22:08:09 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/12 20:40:37 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/15 06:34:06 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,18 @@ int	choise_color(t_point instant, t_point a, t_point b)
 }
 
 
-void two_points_draw_line(t_mlx_image *view, t_point a, t_point b)
+void two_points_draw_line(t_fdf *fdf, t_point a, t_point b)
 {
-    int point[2];
+    int     point[2];
     t_point instant;
 
     instant.x = a.x;
     instant.y = a.y;
     point[0] = abs(b.x - a.x) - abs(b.y - a.y);
-    while (instant.x != b.x || instant.y != b.y)
+    while ( (int)instant.x != (int)b.x || (int)instant.y != (int)b.y )
     {
-        if ((uint32_t)instant.x < view->width && (uint32_t)instant.y < view->height)
-            mlx_put_pixel(view, instant.x, instant.y, choise_color(instant, a, b));
+        if ((uint32_t)instant.x < WIDTH && (uint32_t)instant.y < HEIGHT)
+            mlx_pixel_put(fdf->mlx, fdf->win, (int)instant.x, (int)instant.y, choise_color(instant, a, b));
         point[1] = 2 * point[0];
         if (point[1] > -abs(b.y - a.y))
         {

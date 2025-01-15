@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/13 22:40:42 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/15 07:02:10 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 # define	MLX_KEY_ESCAPE			256
 # define	MLX_KEY_SLASH			47
 
-#define BACKGROUND		0x000000
+#define BACKGROUND		0x000000FF
 #define COLOR_1			0x2841BF
 #define COLOR_2			0x2B40BA
 #define COLOR_3			0x2E40B4
@@ -129,6 +129,7 @@ typedef struct s_fdf
 	void		*win;
 	t_map		*map;
 	t_mlx_image	*img;
+	int		keys[34];
 }				t_fdf;
 
 int		valid_map(const char *mapname);
@@ -145,19 +146,22 @@ int		parse_color(int fd, t_map *map, char *value);
 void	set_point(t_mpoint *point, char *value, int i, int j,
 					t_map *map, int x_offset, int y_offset);
 void	set_columns(int fd, t_map *map, char **split, int i);
-void	set_menu(void *mlx);
-void	map_view(void *view);
-void	rotate_view(void *view);
-void	zoom_view(int x, int y, void *view);
+void	set_menu(void *mlx, void *win);
+int		map_view(void *view);
+int		rotate_view(void *view);
 void	default_view(t_map *map);
-void	image_view(void *view);
-void	draw_background(t_map *img, int color);
+int		image_view(void *view);
+void	draw_background(t_fdf *base, int color);
 void	projection(t_map *map, int i, int j);
 void	draw_line(t_fdf *fdf, int x, int y);
 void	x_location(double *y, double *z, double alpha);
 void	y_location(double *x, double *z, double beta);
 void	z_location(double *x, double *y, double gamma);
-void	two_points_draw_line(t_mlx_image *view, t_point a, t_point b);
+void	two_points_draw_line(t_fdf *view, t_point a, t_point b);
+int		kaan(void *view);
+int		key_press(int keycode, void *win);
+int		key_release(int keycode, void *win);
+void	clear_keys(int *keys, int index);
 
 
 #endif

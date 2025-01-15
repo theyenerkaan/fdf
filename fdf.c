@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:04 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/12 20:40:37 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/15 06:24:19 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static t_fdf	*init_prog(char *mapname)
 	if (!fdf.img)
 	{
 		free_map(fdf.map);
-		mlx_destroy(fdf.mlx);
+		mlx_destroy_window(fdf.mlx, fdf.win);
 		error_exit("Failed to create image");
 	}
 	return (&fdf);
@@ -118,20 +118,20 @@ int	main(int ac, char **av)
 	if (ac != 2 || !valid_map(av[1]))
 		error_exit("Usage: ./fdf <map.fdf>");
 	fdf = init_prog(av[1]);
-	set_menu(fdf->mlx); //bak buna
+	clear_keys(fdf->keys, 0);
+	mlx_hook(fdf->win, 2, 1L<<0, &key_press, fdf);
+	mlx_hook(fdf->win, 3, 1L<<1, &key_release, fdf);
+	set_menu(fdf->mlx, fdf->win); //bak buna
 	image_view(fdf);
-	if(t_mlx_imageo_window(fdf->mlx, fdf->img, 0, 0) == -1)
+	if(mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0) == -1)
 	{
 		free_map(fdf->map);
-		mlx_close_window(fdf->mlx);
+		mlx_destroy_window(fdf->mlx, fdf->win);
 		error_exit("Failed to put image to window");
 	}
-	mlx_loop_hook(fdf->mlx, &map_view, fdf);
-	mlx_loop_hook(fdf->mlx, &rotate_view, fdf);
-	mlx_loop_hook(fdf->mlx, &zoom_view, fdf);
-	mlx_loop_hook(fdf->mlx, &image_view, fdf);
-	mlx_loop(fdf->mlx);
-	mlx_terminate(fdf->mlx);
+	mlx_loop_hook(fdf->mlx, &kaan, fdf);
+	mlx_destroy_window(fdf->mlx, fdf->win);
+	free(fdf->mlx);
 	free_map(fdf->map);
 	return (0);
 }

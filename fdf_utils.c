@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 22:15:06 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/12 20:30:05 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/15 07:02:19 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,26 +64,37 @@ void	free_map(t_map *map)
     }
     free(map);
 }
-void	set_menu(void *mlx)
+void	set_menu(void *mlx, void *win)
 {
-	int		x;
-	int		y;
+    int		x;
+    int		y;
 
-	x = 20;
-	y = 20;
-	mlx_put_string(mlx, "keys and functions", x, y);
-	mlx_put_string(mlx, "Colour\t\t\t\t\t\t\t\tc", x, y += 35);
-	mlx_put_string(mlx, "Zoom\t\t\t\t\t\t\t\t\t\tmouse scroll or -+", x, y += 20);
-	mlx_put_string(mlx, "Translate\t\t\t\t\tarrow keys", x, y += 20);
-	mlx_put_string(mlx, "Scale z\t\t\t\t\t\t\ts + </>", x, y += 20);
-	mlx_put_string(mlx, "Rotate x\t\t\t\t\t\tx + </>", x, y += 20);
-	mlx_put_string(mlx, "Rotate y\t\t\t\t\t\ty + </>", x, y += 20);
-	mlx_put_string(mlx, "Rotate z\t\t\t\t\t\tz + </>", x, y += 20);
-	mlx_put_string(mlx, "PROJECTION", x, y += 30);
-	mlx_put_string(mlx, "Angle x\t\t\t\t\t\t\tq + </>", x, y += 25);
-	mlx_put_string(mlx, "Angle y\t\t\t\t\t\t\tw + </>", x, y += 20);
-	mlx_put_string(mlx, "Isometric\t\t\t\t\t1", x, y += 20);
-	mlx_put_string(mlx, "Dimetric\t\t\t\t\t\t2", x, y += 20);
-	mlx_put_string(mlx, "Trimetric\t\t\t\t\t3", x, y += 20);
-	mlx_put_string(mlx, "RESET\t\t\t\t\t\t\t\t\t0", x, y += 30);
+    x = 20;
+    y = 20;
+    mlx_string_put(mlx, win, x, y, 0xFFFFFF, "keys and functions");
+    mlx_string_put(mlx, win, x, y += 35, 0xFFFFFF, "Colour\t\t\t\t\t\t\t\tc");
+    mlx_string_put(mlx, win, x, y += 20, 0xFFFFFF, "Zoom\t\t\t\t\t\t\t\t\t\tmouse scroll or -+");
+    mlx_string_put(mlx, win, x, y += 20, 0xFFFFFF, "Translate\t\t\t\t\tarrow keys");
+    mlx_string_put(mlx, win, x, y += 20, 0xFFFFFF, "Scale z\t\t\t\t\t\t\ts + </>");
+    mlx_string_put(mlx, win, x, y += 20, 0xFFFFFF, "Rotate x\t\t\t\t\t\tx + </>");
+    mlx_string_put(mlx, win, x, y += 20, 0xFFFFFF, "Rotate y\t\t\t\t\t\ty + </>");
+    mlx_string_put(mlx, win, x, y += 20, 0xFFFFFF, "Rotate z\t\t\t\t\t\tz + </>");
+    mlx_string_put(mlx, win, x, y += 30, 0xFFFFFF, "PROJECTION");
+    mlx_string_put(mlx, win, x, y += 25, 0xFFFFFF, "Angle x\t\t\t\t\t\t\tq + </>");
+    mlx_string_put(mlx, win, x, y += 20, 0xFFFFFF, "Angle y\t\t\t\t\t\t\tw + </>");
+    mlx_string_put(mlx, win, x, y += 20, 0xFFFFFF, "Isometric\t\t\t\t\t1");
+    mlx_string_put(mlx, win, x, y += 20, 0xFFFFFF, "Dimetric\t\t\t\t\t\t2");
+    mlx_string_put(mlx, win, x, y += 20, 0xFFFFFF, "Trimetric\t\t\t\t\t3");
+    mlx_string_put(mlx, win, x, y += 30, 0xFFFFFF, "RESET\t\t\t\t\t\t\t\t\t0");
+}
+int	kaan(void *view)
+{
+	t_fdf	*fdf;
+	
+	fdf = (t_fdf *)view;
+	mlx_loop_hook(fdf->mlx, &map_view, fdf);
+	mlx_loop_hook(fdf->mlx, &rotate_view, fdf);
+	mlx_loop_hook(fdf->mlx, &image_view, fdf);
+	mlx_loop(fdf->mlx);
+	return (0);
 }
