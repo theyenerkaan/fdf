@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 22:15:06 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/15 07:02:19 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/16 19:54:04 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,4 @@ void	set_menu(void *mlx, void *win)
     mlx_string_put(mlx, win, x, y += 20, 0xFFFFFF, "Dimetric\t\t\t\t\t\t2");
     mlx_string_put(mlx, win, x, y += 20, 0xFFFFFF, "Trimetric\t\t\t\t\t3");
     mlx_string_put(mlx, win, x, y += 30, 0xFFFFFF, "RESET\t\t\t\t\t\t\t\t\t0");
-}
-int	kaan(void *view)
-{
-	t_fdf	*fdf;
-	
-	fdf = (t_fdf *)view;
-	mlx_loop_hook(fdf->mlx, &map_view, fdf);
-	mlx_loop_hook(fdf->mlx, &rotate_view, fdf);
-	mlx_loop_hook(fdf->mlx, &image_view, fdf);
-	mlx_loop(fdf->mlx);
-	return (0);
 }

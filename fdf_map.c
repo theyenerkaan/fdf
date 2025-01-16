@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 20:00:40 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/15 07:02:00 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/16 19:46:30 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	image_view(void *view)
 		j = 0;
 		while (j < fdf->map->cols)
 		{
-			draw_line(fdf, j, i);
+			// draw_line(fdf, j, i); // seg yediğimiz yer
 			j++;
 		}
 		i++;
