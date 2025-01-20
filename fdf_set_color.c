@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 05:26:27 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/08 08:12:35 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/20 07:45:57 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,19 @@ int	get_palette_color(double pers)
 	int	color_start;
 	int	color_end;
 	int	index;
+	double	fraction;
 
-	index = (int)(pers * 10);
+	if (pers < 0.0)
+		pers = 0.0;
+	else if (pers > 1.0)
+		pers = 1.0;
+	index = (int)(pers * 10.0);
 	if (index >= 10)
 		index = 10;
 	color_start = get_color_by_index(index);
 	color_end = get_color_by_index(index + 1);
-	return (interpolate_color(color_start, color_end, pers * 10 - index));
+	fraction = (pers * 10.0) - index;
+	return (interpolate_color(color_start, color_end, fraction));
 }
 
 void	set_color(t_map *map)

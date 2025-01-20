@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/16 19:51:03 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/20 08:44:01 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,62 +16,30 @@
 # include "get_next_line/get_next_line.h"
 # include "printf/ft_printf.h"
 # include "libft/libft.h"
+# include <X11/keysym.h>
 # include "mlx/mlx.h"
 # include <limits.h>
 # include <stdint.h>
 # include <fcntl.h>
 # include <math.h>
 
-# define WIDTH			1919
-# define HEIGHT			1010
+# define WIDTH			1920
+# define HEIGHT			1080
 
-# define	MLX_KEY_SPACE			32
-# define	MLX_KEY_APOSTROPHE		39
-# define	MLX_KEY_COMMA			44
-# define	MLX_KEY_MINUS			45
-# define	MLX_KEY_PERIOD			46
-# define	MLX_KEY_SLASH			47
-# define	MLX_KEY_0				48
-# define	MLX_KEY_1				49
-# define	MLX_KEY_2				50
-# define	MLX_KEY_3				51
-# define	MLX_KEY_4				52
-# define	MLX_KEY_5				53
-# define	MLX_KEY_6				54
-# define	MLX_KEY_7				55
-# define	MLX_KEY_8				56
-# define	MLX_KEY_9				57
-# define	MLX_KEY_SEMICOLON		59
-# define	MLX_KEY_EQUAL			61
-# define	MLX_KEY_A				65
-# define	MLX_KEY_C				67
-# define	MLX_KEY_D				68
-# define	MLX_KEY_E				69
-# define	MLX_KEY_G				71
-# define	MLX_KEY_Q				81
-# define	MLX_KEY_R				82
-# define	MLX_KEY_S				83
-# define	MLX_KEY_T				84
-# define	MLX_KEY_W				87
-# define	MLX_KEY_LEFT			263
-# define	MLX_KEY_RIGHT			262
-# define	MLX_KEY_DOWN			264
-# define	MLX_KEY_UP				265
-# define	MLX_KEY_ESCAPE			256
-# define	MLX_KEY_SLASH			47
+# define KEY_MAX		65535
 
-#define BACKGROUND		0x000000FF
+#define BACKGROUND		0x000000
 #define COLOR_1			0x2841BF
 #define COLOR_2			0x2B40BA
 #define COLOR_3			0x2E40B4
 #define COLOR_4			0x313FAF
 #define COLOR_5			0x353FAA
-#define COLOR_6			0x383FA5
+#define COLOR_6			0xf2f2f2
 #define COLOR_7			0x3B3EA0
 #define COLOR_8			0x3E3E9A
 #define COLOR_9			0x423D95
 #define COLOR_10		0x453D90
-#define COLOR_11		0x483D8B
+#define COLOR_11		0xf2f2f2
 
 typedef	enum s_bool
 {
@@ -125,13 +93,18 @@ typedef struct s_map
 
 typedef struct s_fdf
 {
-	void		*mlx;
-	void		*win;
-	t_map		*map;
-	t_mlx_image	*img;
-	int		keys[34];
-}				t_fdf;
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*addr;
+	t_map	*map;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		keys[KEY_MAX + 1];
+}	t_fdf;
 
+void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color);
 int		valid_map(const char *mapname);
 void	error_exit(const char *msg);
 void	set_size(int fd, t_map *map);

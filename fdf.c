@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:04 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/16 21:08:10 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/20 08:12:25 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static t_map	*parse_map(char *mapname)
 	fd = open(mapname, O_RDONLY);
 	if (fd < 0)
 		error_exit("Failed to open map file");
-	map = (t_map *)ft_calloc(1, sizeof(t_map)); 
+	map = (t_map *)ft_calloc(1, sizeof(t_map));
 	if (!map)
 	{
 		close(fd);
@@ -90,24 +90,29 @@ static t_map	*parse_map(char *mapname)
 	
 }
 
-static t_fdf	*init_prog(char *mapname)
+static t_fdf *init_prog(char *mapname)
 {
-	static t_fdf	fdf;
-
+	static t_fdf fdf;
 	fdf.map = parse_map(mapname);
-	fdf.mlx = mlx_init(WIDTH, HEIGHT, "the fdf of Y   K   Y ' s", true);
+	fdf.mlx = mlx_init();
 	if (!fdf.mlx)
 	{
 		free_map(fdf.map);
 		error_exit("Failed to initialize mlx");
 	}
+	fdf.win = NULL;
 	fdf.img = mlx_new_image(fdf.mlx, WIDTH, HEIGHT);
 	if (!fdf.img)
 	{
 		free_map(fdf.map);
-		mlx_destroy_window(fdf.mlx, fdf.win);
 		error_exit("Failed to create image");
 	}
+	fdf.img = mlx_new_image(fdf.mlx, WIDTH, HEIGHT);
+	if (!fdf.img)
+		error_exit("Failed to create image");
+	fdf.addr = mlx_get_data_addr(fdf.img, &fdf.bpp, &fdf.line_len, &fdf.endian);
+	if (!fdf.addr)
+		error_exit("Failed to get data address");
 	return (&fdf);
 }
 
@@ -119,24 +124,28 @@ int	main(int ac, char **av)
 		error_exit("Usage: ./fdf <map.fdf>");
 	fdf = init_prog(av[1]);
 	fdf->win = mlx_new_window(fdf->mlx, WIDTH, HEIGHT, "the fdf of Y   K   Y ' s");
-	fdf->img = mlx_new_image(fdf->mlx, WIDTH, HEIGHT);
+	if (!fdf->win)
+	{
+		free_map(fdf->map);
+		mlx_destroy_image(fdf->mlx, fdf->img);
+		error_exit("Failed to create window");
+	}
 	clear_keys(fdf->keys, 0);
-	mlx_hook(fdf->win, 2, 1L<<0, &key_press, fdf);
-	mlx_hook(fdf->win, 3, 1L<<1, &key_release, fdf);
-	set_menu(fdf->mlx, fdf->win); //bak buna
+	mlx_hook(fdf->win, 2, 1L << 0, &key_press, fdf);   /* Key press event  */
+	mlx_hook(fdf->win, 3, 1L << 1, &key_release, fdf); /* Key release event*/
+	set_menu(fdf->mlx, fdf->win);
 	image_view(fdf);
-	ft_printf("Press 'H' for help\n");
-	if(mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0) == -1)
+	if (mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0) == -1)
 	{
 		free_map(fdf->map);
 		mlx_destroy_window(fdf->mlx, fdf->win);
+		mlx_destroy_image(fdf->mlx, fdf->img);
 		error_exit("Failed to put image to window");
 	}
-	mlx_loop_hook(fdf->mlx, &map_view, fdf);
-	mlx_loop_hook(fdf->mlx, &rotate_view, fdf);
-	mlx_loop_hook(fdf->mlx, &image_view, fdf);
+	mlx_loop_hook(fdf->mlx, &kaan, fdf);
 	mlx_loop(fdf->mlx);
 	mlx_destroy_window(fdf->mlx, fdf->win);
+	mlx_destroy_image(fdf->mlx, fdf->img);
 	free(fdf->mlx);
 	free_map(fdf->map);
 	return (0);
