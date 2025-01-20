@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 10:16:12 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:28:35 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ typedef struct s_map
 {
 	int				rows;
 	int				cols;
-	int				high;
-	int				deep;
+	int			high;
+	int			deep;
 	t_bool			use_color;
 	double			x_offset;
 	double			y_offset;
@@ -137,7 +137,6 @@ int		key_release(int keycode, void *win);
 void	clear_keys(int *keys, int index);
 int		interpolate_color(int start, int end, double t);
 int		get_palette_color(double pers);
-
 
 #endif
  

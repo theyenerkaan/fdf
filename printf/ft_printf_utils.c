@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:26:59 by yenyilma          #+#    #+#             */
-/*   Updated: 2024/10/22 17:34:18 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:09:21 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_putstr(char *s, int count)
 	int	i;
 
 	if (!s)
-		return (ft_putstr("(null)", count));
+		return (ft_putstr("(nill)", count));
 	i = 0;
 	while (s[i])
 		count += ft_putchar(s[i++]);

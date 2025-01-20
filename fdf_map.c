@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 20:00:40 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 08:36:59 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/20 10:30:42 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	map_view(void *view)
 	if (fdf->keys[XK_g])
 		fdf->map->zscale -= 0.03;
 	if (fdf->keys[XK_slash]) // '/'
-		fdf->map->zscale = 1;
+		fdf->map->zscale = 0.03;
 	if (fdf->keys[XK_s])
 		fdf->map->xrotate += 0.02;
 	if (fdf->keys[XK_d])

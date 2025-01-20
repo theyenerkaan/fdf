@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 22:15:06 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 08:32:32 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:20:13 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ft_free_split(void **split, size_t len)
 	}
 	free(split);
 }
+
 
 void	free_map(t_map *map)
 {
@@ -95,7 +96,7 @@ int	kaan(void *view)
 	map_view(fdf);
 	rotate_view(fdf);
 	image_view(fdf);
-	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0);
+	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 1, 1);
 	return (0);
 }
 void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)

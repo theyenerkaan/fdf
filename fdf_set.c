@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:23:11 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/15 17:49:40 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:29:49 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	set_point(t_mpoint *point, char *value, int i, int j,
 	point->z = z_value;
 	point->mapcolor = parse_color(0, map, value);
 
-	map->high = ft_max(map->high, z_value);
-	map->deep = ft_min(map->deep, z_value);
+	map->high = INT_MAX;
+	map->deep = INT_MIN;
 }
 
 void	set_columns(int fd, t_map *map, char **split, int i)
@@ -33,8 +33,8 @@ void	set_columns(int fd, t_map *map, char **split, int i)
 	int			x_offset;
 	int			y_offset;
 
-	x_offset = (map->cols - 1) * map->interval / 2;
-	y_offset = (map->rows - 1) * map->interval / 2;
+	x_offset = ((map->cols - 1) * map->interval) / 2;
+	y_offset = ((map->rows - 1) * map->interval) / 2;
 	j = 0;
 	while (split[j])
 	{
@@ -93,10 +93,14 @@ static int	get_line(int fd, t_map *map, char *line)
 		error_map(fd, map, "Failed to allocate memory for line");
 	while (split[i])
 	{
-		map->high = ft_max(map->high, ft_atoi(split[i]));
-		map->deep = ft_min(map->deep, ft_atoi(split[i]));
+		int a = ft_atoi(split[i]);
+		map->high = ft_max(map->high, a);
+		ft_printf("high %d\n", map->high);
+		ft_printf("a %d\n", a);
+		map->deep = ft_min(map->deep, a);
 		i++;
 	}
+	exit(31);
 	ft_free_split((void **)split, i);
 	return (free(line), free(tmp), i);
 }

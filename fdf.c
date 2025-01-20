@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:04 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 08:12:25 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/20 14:36:49 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static t_map	*parse_map(char *mapname)
 	
 }
 
-static t_fdf *init_prog(char *mapname)
+t_fdf *init_prog(char *mapname)
 {
 	static t_fdf fdf;
 	fdf.map = parse_map(mapname);
@@ -144,9 +144,10 @@ int	main(int ac, char **av)
 	}
 	mlx_loop_hook(fdf->mlx, &kaan, fdf);
 	mlx_loop(fdf->mlx);
-	mlx_destroy_window(fdf->mlx, fdf->win);
 	mlx_destroy_image(fdf->mlx, fdf->img);
-	free(fdf->mlx);
+	mlx_destroy_window(fdf->mlx, fdf->win);
+	mlx_destroy_display(fdf->mlx);
 	free_map(fdf->map);
+	free(fdf->mlx);
 	return (0);
 }
