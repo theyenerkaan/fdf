@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:38:01 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 09:01:44 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/20 10:16:48 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	projection(t_map *map, int y, int x)
 	t_point		*projection;
 
 	point = &(map->mgrid[y][x]);
+	projection = &(map->grid[y][x]);
 	tmp.x = point->x;
 	tmp.y = point->y;
 	tmp.z = point->z * map->zscale;
@@ -61,10 +62,11 @@ void	projection(t_map *map, int y, int x)
 	projection->y = (int)(-tmp.z * map->zoom + (tmp.x * map->zoom + tmp.y * map->zoom) 
 		* sin(map->beta) + map->y_offset);
 	if (map->use_color)
-		projection->rgba = point->color;
+        projection->rgba = get_palette_color((point->z - map->deep) / (map->high - map->deep));
 	else
-		projection->rgba = point->mapcolor;
+		projection->rgba = 0x808080;
 }
+
 
 void	draw_line(t_fdf *fdf, int x, int y)
 {

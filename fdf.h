@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 08:44:01 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/20 10:16:12 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ int		kaan(void *view);
 int		key_press(int keycode, void *win);
 int		key_release(int keycode, void *win);
 void	clear_keys(int *keys, int index);
+int		interpolate_color(int start, int end, double t);
+int		get_palette_color(double pers);
 
 
 #endif
