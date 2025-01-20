@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:23:11 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 15:29:49 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/20 17:02:25 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	set_point(t_mpoint *point, char *value, int i, int j,
 	point->z = z_value;
 	point->mapcolor = parse_color(0, map, value);
 
-	map->high = INT_MAX;
-	map->deep = INT_MIN;
+	// map->high = INT_MAX;
+	// map->deep = INT_MIN;
 }
 
 void	set_columns(int fd, t_map *map, char **split, int i)
@@ -72,6 +72,7 @@ void	set_map(int fd, t_map *map)
 		set_columns(fd, map, split, i);
 		free(tmp);
 		free(line);
+		free(split);
 		ft_free_split((void **)split, map->cols);
 		i++;
 	}
@@ -94,13 +95,12 @@ static int	get_line(int fd, t_map *map, char *line)
 	while (split[i])
 	{
 		int a = ft_atoi(split[i]);
-		map->high = ft_max(map->high, a);
-		ft_printf("high %d\n", map->high);
-		ft_printf("a %d\n", a);
-		map->deep = ft_min(map->deep, a);
+		map->high = ft_min(map->high, a);
+		// ft_printf("high %d\n", map->high);
+		// ft_printf("a %d\n", a);
+		map->deep = ft_max(map->deep, a);
 		i++;
 	}
-	exit(31);
 	ft_free_split((void **)split, i);
 	return (free(line), free(tmp), i);
 }

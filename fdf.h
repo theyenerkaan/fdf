@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 15:28:35 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:33:48 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define HEIGHT			1080
 
 # define KEY_MAX		65535
+# define HV				100
+# define DV				100
 
 #define BACKGROUND		0x000000
 #define COLOR_1			0x2841BF
@@ -74,8 +76,8 @@ typedef struct s_map
 {
 	int				rows;
 	int				cols;
-	int			high;
-	int			deep;
+	int				high;
+	int				deep;
 	t_bool			use_color;
 	double			x_offset;
 	double			y_offset;

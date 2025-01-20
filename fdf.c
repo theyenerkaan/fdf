@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:04 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 14:36:49 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:51:44 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	filling_map(t_map *map)
 {
 	map->rows = 0;
 	map->cols = 0;
-	map->high = INT_MAX;
-	map->deep = INT_MIN;
+	map->high = HV;
+	map->deep = DV;
 	map->use_color = false;
 	map->x_offset = WIDTH / 2;
 	map->y_offset = HEIGHT / 2;
@@ -107,9 +107,6 @@ t_fdf *init_prog(char *mapname)
 		free_map(fdf.map);
 		error_exit("Failed to create image");
 	}
-	fdf.img = mlx_new_image(fdf.mlx, WIDTH, HEIGHT);
-	if (!fdf.img)
-		error_exit("Failed to create image");
 	fdf.addr = mlx_get_data_addr(fdf.img, &fdf.bpp, &fdf.line_len, &fdf.endian);
 	if (!fdf.addr)
 		error_exit("Failed to get data address");

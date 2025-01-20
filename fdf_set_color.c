@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 05:26:27 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 15:27:13 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:56:34 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	get_palette_color(double pers)
 		index = 10;
 	color_start = get_color_by_index(index);
 	color_end = get_color_by_index(index + 1);
-	fraction = (pers * 10.0) - index;
+	fraction = (pers * 10.0) - (double)index;
 	return (interpolate_color(color_start, color_end, fraction));
 }
 #include "stdio.h"
@@ -98,7 +98,7 @@ void	set_color(t_map *map)
 {
 	int		i;
 	int 	j;
-	float	pers;
+	double	pers;
 
 	i = 0;
 	while (i < map->rows)
@@ -106,7 +106,7 @@ void	set_color(t_map *map)
 		j = 0;
 		while (j < map->cols)
 		{
-			pers = (map->mgrid[i][j].z - map->deep) / (map->high - (map->deep));
+			pers = (map->mgrid[i][j].z - (double)map->deep) / ((double)map->high - ((double)map->deep));
 			if (map->high == map->deep)
 			{
 				pers = 0.5;
@@ -116,8 +116,6 @@ void	set_color(t_map *map)
 			if (pers > 1.0)
 				pers = 1.0;
 			map->mgrid[i][j].color = get_palette_color(pers);
-			printf("elma pers %f\n", pers);
-
 			j++;
 		}
 		i++;
