@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 05:26:27 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 16:56:34 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/22 00:42:16 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,46 @@
 
 #include "fdf.h"
 
-
-int	get_color_by_index(int index)
+int	radiant(int start, int end, double percentage)
 {
-	if (index == 0)
+	return ((int)((1 - percentage) * start + percentage * end));
+}
+
+double	percent(int start, int end, int current)
+{
+	double	placement;
+	double	distance;
+
+	placement = current - start;
+	distance = end - start;
+	if (distance == 0)
+		return (1.0);
+	return (placement / distance);
+}
+
+int	get_palette_color(double perc)
+{
+	if (perc < 0.1)
 		return (COLOR_1);
-	if (index == 1)
+	else if (perc < 0.2)
 		return (COLOR_2);
-	if (index == 2)
+	else if (perc < 0.3)
 		return (COLOR_3);
-	if (index == 3)
+	else if (perc < 0.4)
 		return (COLOR_4);
-	if (index == 4)
+	else if (perc < 0.5)
 		return (COLOR_5);
-	if (index == 5)
+	else if (perc < 0.6)
 		return (COLOR_6);
-	if (index == 6)
+	else if (perc < 0.7)
 		return (COLOR_7);
-	if (index == 7)
+	else if (perc < 0.8)
 		return (COLOR_8);
-	if (index == 8)
+	else if (perc < 0.9)
 		return (COLOR_9);
-	if (index == 9)
+	else if (perc < 1.0)
 		return (COLOR_10);
-	return (COLOR_11);
+	return (COLOR_11); 
 }
 
 int	interpolate_color(int start, int end, double t)
@@ -73,27 +89,7 @@ int	interpolate_color(int start, int end, double t)
 	b = (int)((1 - t) * sb + t * eb);
 	return ((r << 16) | (g << 8) | b);
 }
-#include <stdio.h>
-int	get_palette_color(double pers)
-{
-	int	color_start;
-	int	color_end;
-	int	index;
-	double	fraction;
 
-	if (pers < 0.0)
-		pers = 0.0;
-	else if (pers > 1.0)
-		pers = 1.0;
-	index = (int)(pers * 10.0);
-	if (index >= 10)
-		index = 10;
-	color_start = get_color_by_index(index);
-	color_end = get_color_by_index(index + 1);
-	fraction = (pers * 10.0) - (double)index;
-	return (interpolate_color(color_start, color_end, fraction));
-}
-#include "stdio.h"
 void	set_color(t_map *map)
 {
 	int		i;
@@ -106,16 +102,17 @@ void	set_color(t_map *map)
 		j = 0;
 		while (j < map->cols)
 		{
-			pers = (map->mgrid[i][j].z - (double)map->deep) / ((double)map->high - ((double)map->deep));
+			pers = percent(map->deep, map->high, map->mgrid[i][j].z);
 			if (map->high == map->deep)
 			{
 				pers = 0.5;
 			}
-			if (pers < 0.0)
+			else if (pers < 0.0)
 				pers = 0.0;
-			if (pers > 1.0)
+			else if (pers > 1.0)
 				pers = 1.0;
-			map->mgrid[i][j].color = get_palette_color(pers);
+			else
+				map->mgrid[i][j].color = get_palette_color(pers);
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 20:00:40 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 16:28:56 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/21 22:58:57 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	rotate_view(void *view)
 	return (0);
 }
 
-int	image_view(void *view)
+void	image_view(void *view)
 {
 	int		i;
 	int		j;
@@ -122,5 +122,4 @@ int	image_view(void *view)
 		}
 		i++;
 	}
-	return (0);
 }

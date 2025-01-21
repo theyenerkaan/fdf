@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 22:15:06 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 12:20:13 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/21 23:30:23 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	set_menu(void *mlx, void *win)
     mlx_string_put(mlx, win, x, y += 20, 0xFFFFFF, "Trimetric\t\t\t\t\t3");
     mlx_string_put(mlx, win, x, y += 30, 0xFFFFFF, "RESET\t\t\t\t\t\t\t\t\t0");
 }
+
 int	kaan(void *view)
 {
 	t_fdf	*fdf;

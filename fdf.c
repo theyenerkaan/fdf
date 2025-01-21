@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:04 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 16:51:44 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/21 22:30:44 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void	alloc_grid(t_map *map)
     int i;
 
     i = -1;
-    map->mgrid = (t_mpoint **)malloc(sizeof(t_mpoint *) * map->rows);
-    map->grid = (t_point **)malloc(sizeof(t_point *) * map->rows);
+    map->mgrid = malloc(sizeof(t_mpoint *) * map->rows);
+    map->grid = malloc(sizeof(t_point *) * map->rows);
     if (!(map->mgrid) || !(map->grid))
     {
         free_map(map);
@@ -26,9 +26,9 @@ static void	alloc_grid(t_map *map)
     }
     while (++i < map->rows)
     {
-        map->mgrid[i] = (t_mpoint *)malloc(sizeof(t_mpoint) * map->cols);
-        map->grid[i] = (t_point *)malloc(sizeof(t_point) * map->cols);
-        if (!(map->mgrid[i]) || !(map->grid[i]))
+        map->mgrid[i] = malloc(sizeof(t_mpoint) * map->cols);
+        map->grid[i] = malloc(sizeof(t_point) * map->cols);
+        if (!(map->grid[i]) || !(map->mgrid[i]))
         {
             if (i + 1 < map->rows)
             {
@@ -45,8 +45,8 @@ void	filling_map(t_map *map)
 {
 	map->rows = 0;
 	map->cols = 0;
-	map->high = HV;
-	map->deep = DV;
+	map->high = INT_MIN;
+	map->deep = INT_MAX;
 	map->use_color = false;
 	map->x_offset = WIDTH / 2;
 	map->y_offset = HEIGHT / 2;

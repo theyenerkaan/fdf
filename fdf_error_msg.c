@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:38:01 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 10:16:48 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/22 00:33:37 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ void	draw_background(t_fdf *base, int color)
 	}
 }
 
-void	projection(t_map *map, int y, int x)
+void	projection(t_map *map, int i, int j)
 {
 	t_mpoint	*point;
 	t_mpoint	tmp;
 	t_point		*projection;
 
-	point = &(map->mgrid[y][x]);
-	projection = &(map->grid[y][x]);
+	point = &(map->mgrid[i][j]);
+	projection = &(map->grid[i][j]);
 	tmp.x = point->x;
 	tmp.y = point->y;
 	tmp.z = point->z * map->zscale;
@@ -62,11 +62,10 @@ void	projection(t_map *map, int y, int x)
 	projection->y = (int)(-tmp.z * map->zoom + (tmp.x * map->zoom + tmp.y * map->zoom) 
 		* sin(map->beta) + map->y_offset);
 	if (map->use_color)
-        projection->rgba = get_palette_color((point->z - map->deep) / (map->high - map->deep));
+		projection->rgba = point->color;
 	else
-		projection->rgba = 0x808080;
+		projection->rgba = 0x00000;
 }
-
 
 void	draw_line(t_fdf *fdf, int x, int y)
 {
@@ -79,7 +78,8 @@ void	draw_line(t_fdf *fdf, int x, int y)
     }
     if (x + 1 < fdf->map->cols)
     {
-        projection(fdf->map, y, x + 1);
+		if (y == 0)
+        	projection(fdf->map, y, x + 1);
         two_points_draw_line(fdf, fdf->map->grid[y][x], fdf->map->grid[y][x + 1]);
     }
 }

@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/20 16:33:48 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/22 00:32:42 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,8 @@
 # define HEIGHT			1080
 
 # define KEY_MAX		65535
-# define HV				100
-# define DV				100
 
-#define BACKGROUND		0x000000
+#define BACKGROUND		0x808080
 #define COLOR_1			0x2841BF
 #define COLOR_2			0x2B40BA
 #define COLOR_3			0x2E40B4
@@ -106,6 +104,8 @@ typedef struct s_fdf
 	int		keys[KEY_MAX + 1];
 }	t_fdf;
 
+
+int		choise_color(t_point instant, t_point a, t_point b);
 void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color);
 int		valid_map(const char *mapname);
 void	error_exit(const char *msg);
@@ -125,7 +125,9 @@ void	set_menu(void *mlx, void *win);
 int		map_view(void *view);
 int		rotate_view(void *view);
 void	default_view(t_map *map);
-int		image_view(void *view);
+void	image_view(void *view);
+double	percent(int start, int end, int current);
+int	radiant(int start, int end, double percentage);
 void	draw_background(t_fdf *base, int color);
 void	projection(t_map *map, int i, int j);
 void	draw_line(t_fdf *fdf, int x, int y);
