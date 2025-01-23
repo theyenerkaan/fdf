@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:04 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/21 22:30:44 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:38:07 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	filling_map(t_map *map)
 	map->y_offset = HEIGHT / 2;
 	map->alpha = 0.46373398 / 2;
 	map->beta = 0.46373398;
-	map->xrotate = 0;
-	map->yrotate = 0;
-	map->zrotate = 0;
+	map->x_rotate = 0;
+	map->y_rotate = 0;
+	map->z_rotate = 0;
 	map->zoom = 1;
 	map->zscale = 1;
 	map->mgrid = NULL;
@@ -69,7 +69,7 @@ static t_map	*parse_map(char *mapname)
 	fd = open(mapname, O_RDONLY);
 	if (fd < 0)
 		error_exit("Failed to open map file");
-	map = (t_map *)ft_calloc(1, sizeof(t_map));
+	map = malloc(sizeof(t_map));
 	if (!map)
 	{
 		close(fd);
@@ -80,7 +80,7 @@ static t_map	*parse_map(char *mapname)
 	close(fd);
 	alloc_grid(map);
 	map->interval = ft_max(2, ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2);
-	fd = open(mapname, O_RDONLY);
+	fd = open(mapname, O_RDONLY, 0777);
 	if (fd < 0)
 		error_map(fd, map, "Failed to open map file");
 	set_map(fd, map);

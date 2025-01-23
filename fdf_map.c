@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 20:00:40 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/21 22:58:57 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:11:40 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	default_view(t_map *map)
 	map->y_offset = HEIGHT / 2;
 	map->alpha = 0.46373398 / 2;
 	map->beta = 0.46373398;
-	map->xrotate = 0;
-	map->yrotate = 0;
-	map->zrotate = 0;
+	map->x_rotate = 0;
+	map->y_rotate = 0;
+	map->z_rotate = 0;
 	map->zoom = 1;
 	map->zscale = 1;
 }
@@ -54,17 +54,17 @@ int	map_view(void *view)
 	if (fdf->keys[XK_slash]) // '/'
 		fdf->map->zscale = 0.03;
 	if (fdf->keys[XK_s])
-		fdf->map->xrotate += 0.02;
+		fdf->map->x_rotate += 0.02;
 	if (fdf->keys[XK_d])
-		fdf->map->yrotate += 0.02;
+		fdf->map->y_rotate += 0.02;
 	if (fdf->keys[XK_a])
-		fdf->map->zrotate += 0.02;
+		fdf->map->z_rotate += 0.02;
 	if (fdf->keys[XK_w])
 		fdf->map->zoom -= 0.02;
 	if (fdf->keys[XK_e])
 		fdf->map->zoom += 0.02;
 	if (fdf->keys[XK_r])
-		fdf->map->zrotate -= 0.02;
+		fdf->map->z_rotate -= 0.02;
 	return (0);
 }
 

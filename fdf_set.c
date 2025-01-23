@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:23:11 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/22 00:28:04 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/23 21:14:17 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,31 @@ void	set_point(t_mpoint *point, char *value, int i, int j,
 	// map->deep = INT_MIN;
 }
 
+#include "stdio.h"
 void	set_columns(int fd, t_map *map, char **split, int i)
 {
-	int			j;
+	t_mpoint	*point;
 	int			x_offset;
 	int			y_offset;
+	int			j;
 
-	x_offset = ((map->cols - 1) * map->interval) / 2;
-	y_offset = ((map->rows - 1) * map->interval) / 2;
-	j = 0;
-	while (split[j])
+	j = -1;
+	while (++j < map->cols)
 	{
 		if (!ft_isdigit(*split[j]) && *split[j] != '-')
 			error_map(fd, map, "Invalid map");
-		set_point(&(map->mgrid[i][j]), split[j], i, j, map, x_offset, y_offset);
-		j++;
+		point = &(map->mgrid[i][j]);
+		x_offset = (map->cols - 1) * map->interval / 2;
+		y_offset = (map->rows - 1) * map->interval / 2;
+		point->x = (double)j * (map->interval) - x_offset;
+		point->y = (double)i * (map->interval) - y_offset;
+		point->z = (double)ft_atoi(split[j]) * (map->interval);
+		map->high = ft_max(map->high, point->z);
+		map->deep = ft_min(map->deep, point->z);
+		point->mapcolor = parse_color(fd, map, split[j]);
+		printf("fd %d\n", fd);
+		printf("point->x: %d\n", point->mapcolor);
 	}
-	if (i == 0)
-		map->cols = j;
-	else if (map->cols != j)
-		error_map(fd, map, "Invalid map");
 }
 
 
@@ -99,6 +104,7 @@ static int	get_line(int fd, t_map *map, char *line)
 	ft_free_split((void **)split, i);
 	return (free(line), free(tmp), i);
 }
+#include "stdio.h"
 
 void	set_size(int fd, t_map *map)
 {
@@ -108,6 +114,7 @@ void	set_size(int fd, t_map *map)
 	if (!line)
 		error_map(fd, map, "Failed to read map file");
 	map->cols = get_line(fd, map, line);
+	printf("map->cols: %d\n", map->cols);
 	if(map->cols == 0)
 		error_map(fd, map, "Invalid map");
 	map->rows = 1;

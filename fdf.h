@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/22 00:32:42 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/23 21:05:42 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,24 @@
 #define COLOR_3			0x2E40B4
 #define COLOR_4			0x313FAF
 #define COLOR_5			0x353FAA
-#define COLOR_6			0xf2f2f2
+#define COLOR_6			0x383FA5
 #define COLOR_7			0x3B3EA0
 #define COLOR_8			0x3E3E9A
 #define COLOR_9			0x423D95
 #define COLOR_10		0x453D90
-#define COLOR_11		0xf2f2f2
+#define COLOR_11		0x483D8B
 
 typedef	enum s_bool
 {
 	false,
 	true
-}				t_bool;
+}								t_bool;
 
 typedef struct g_mlx_image
 {
 	uint32_t	width;
 	uint32_t	height;
-}						t_mlx_image;
+}								t_mlx_image;
 
 typedef struct s_mpoint
 {
@@ -60,7 +60,7 @@ typedef struct s_mpoint
 	double	z;
 	int		mapcolor;
 	int		color;
-}				t_mpoint;
+}								t_mpoint;
 
 typedef struct s_point
 {
@@ -68,7 +68,7 @@ typedef struct s_point
 	int		y;
 	int		z;
 	int		rgba;
-}				t_point;
+}								t_point;
 
 typedef struct s_map
 {
@@ -82,14 +82,14 @@ typedef struct s_map
 	double			interval;
 	double			alpha;
 	double			beta;
-	double			xrotate;
-	double			yrotate;
-	double			zrotate;
+	double			x_rotate;
+	double			y_rotate;
+	double			z_rotate;
 	double			zoom;
 	double			zscale;
 	t_mpoint		**mgrid;
 	t_point			**grid;
-}						t_map;
+}								t_map;
 
 typedef struct s_fdf
 {
@@ -102,7 +102,7 @@ typedef struct s_fdf
 	int		line_len;
 	int		endian;
 	int		keys[KEY_MAX + 1];
-}	t_fdf;
+}								t_fdf;
 
 
 int		choise_color(t_point instant, t_point a, t_point b);
@@ -121,13 +121,14 @@ int		parse_color(int fd, t_map *map, char *value);
 void	set_point(t_mpoint *point, char *value, int i, int j,
 					t_map *map, int x_offset, int y_offset);
 void	set_columns(int fd, t_map *map, char **split, int i);
+int		ft_atoi_base(const char *nptr, const char *base);
 void	set_menu(void *mlx, void *win);
 int		map_view(void *view);
 int		rotate_view(void *view);
 void	default_view(t_map *map);
 void	image_view(void *view);
 double	percent(int start, int end, int current);
-int	radiant(int start, int end, double percentage);
+int		radiant(int start, int end, double percentage);
 void	draw_background(t_fdf *base, int color);
 void	projection(t_map *map, int i, int j);
 void	draw_line(t_fdf *fdf, int x, int y);

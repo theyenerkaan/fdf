@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:38:01 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/22 00:33:37 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:11:40 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	projection(t_map *map, int i, int j)
 	tmp.x = point->x;
 	tmp.y = point->y;
 	tmp.z = point->z * map->zscale;
-	x_location(&(tmp.y), &(tmp.z), map->xrotate);
-	y_location(&(tmp.x), &(tmp.z), map->yrotate);
-	z_location(&(tmp.x), &(tmp.y), map->zrotate);
+	x_location(&(tmp.y), &(tmp.z), map->x_rotate);
+	y_location(&(tmp.x), &(tmp.z), map->y_rotate);
+	z_location(&(tmp.x), &(tmp.y), map->z_rotate);
 	projection->x = (int)(tmp.x * map->zoom - tmp.y * map->zoom) * cos(map->alpha) + map->x_offset;
 	projection->y = (int)(-tmp.z * map->zoom + (tmp.x * map->zoom + tmp.y * map->zoom) 
 		* sin(map->beta) + map->y_offset);
