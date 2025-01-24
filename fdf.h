@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/23 21:05:42 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/24 22:36:18 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@
 
 # define KEY_MAX		65535
 
-#define BACKGROUND		0x808080
-#define COLOR_1			0x2841BF
-#define COLOR_2			0x2B40BA
-#define COLOR_3			0x2E40B4
-#define COLOR_4			0x313FAF
-#define COLOR_5			0x353FAA
-#define COLOR_6			0x383FA5
-#define COLOR_7			0x3B3EA0
-#define COLOR_8			0x3E3E9A
-#define COLOR_9			0x423D95
-#define COLOR_10		0x453D90
-#define COLOR_11		0x483D8B
+#define BACKGROUND		0x000000
+#define COLOR_1			0x551a8b
+#define COLOR_2			0x7d26cd
+#define COLOR_3			0x912cee
+#define COLOR_4			0xfdae61ff
+#define COLOR_5			0xfee08bff
+#define COLOR_6			0xe6f598ff
+#define COLOR_7			0xabdda4ff
+#define COLOR_8			0x66c2a5ff
+#define COLOR_9			0x3288bdff
+#define COLOR_10		0xb432d2ff
+#define COLOR_11		0xa028c8ff
 
 typedef	enum s_bool
 {
@@ -87,6 +87,8 @@ typedef struct s_map
 	double			z_rotate;
 	double			zoom;
 	double			zscale;
+	int				mhigh;
+	int				mdeep;
 	t_mpoint		**mgrid;
 	t_point			**grid;
 }								t_map;

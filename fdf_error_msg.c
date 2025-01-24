@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:38:01 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/23 17:11:40 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/24 20:17:35 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	projection(t_map *map, int i, int j)
 	if (map->use_color)
 		projection->rgba = point->color;
 	else
-		projection->rgba = 0x00000;
+		projection->rgba = point->mapcolor;
 }
 
 void	draw_line(t_fdf *fdf, int x, int y)

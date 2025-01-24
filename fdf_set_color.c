@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 05:26:27 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/23 21:12:13 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/24 22:22:23 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	get_palette_color(double perc)
 // 	b = (int)((1 - t) * sb + t * eb);
 // 	return ((r << 16) | (g << 8) | b);
 // }
-
+#include "stdio.h"
 void	set_color(t_map *map)
 {
 	int		i;
@@ -92,15 +92,15 @@ void	set_color(t_map *map)
 		{
 			pers = percent(map->deep, map->high, map->mgrid[i][j].z);
 			if (map->high == map->deep)
-			{
 				pers = 0.5;
-			}
-			else if (pers < 0.0)
+
+			if (pers < 0.0)
 				pers = 0.0;
 			else if (pers > 1.0)
 				pers = 1.0;
-			else
-				map->mgrid[i][j].color = get_palette_color(pers);
+
+			map->mgrid[i][j].color = get_palette_color(pers);
+
 			j++;
 		}
 		i++;
@@ -123,7 +123,7 @@ int	parse_color(int fd, t_map *map, char *split)
 	if (*split == ',')
 		split++;
 	else
-		return (0x808080);
+		return (0xFFFFFFFF);
 	if ((ft_strncmp(split, "0X", 2) && ft_strncmp(split, "0x", 2)))
 		error_map(fd, map, "Invalid color format");
 	split += 2;

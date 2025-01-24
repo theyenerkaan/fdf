@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:04 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/23 20:38:07 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/24 22:52:55 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,27 @@ static void	alloc_grid(t_map *map)
     }
 }
 
+void	set_zoom(t_map *map)
+{
+	int maxheight;
+	
+	if (map->mdeep < 0)
+		map->mdeep *= -1;
+	if (map->mhigh > map->mdeep)
+		maxheight = map->mhigh;
+	else
+		maxheight = map->mdeep;
+	
+	if (maxheight > 20)
+		map->zoom = 0.2;
+	else if (maxheight > 10)
+		map->zoom = 0.5;
+	else
+		map->zoom = 1;
+	ft_printf("maxheight: %d\n", maxheight);
+	
+}
+
 void	filling_map(t_map *map)
 {
 	map->rows = 0;
@@ -60,7 +81,6 @@ void	filling_map(t_map *map)
 	map->mgrid = NULL;
 	map->grid = NULL;
 }
-
 static t_map	*parse_map(char *mapname)
 {
 	int fd;

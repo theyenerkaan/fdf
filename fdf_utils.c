@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 22:15:06 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/21 23:30:23 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/24 22:27:56 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,5 @@ void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)
 	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 		return ;
 	dst = fdf->addr + (y * fdf->line_len + x * (fdf->bpp / 8));
-	*(unsigned int *)dst = color;
+	*(unsigned int *)dst = (0xFF << 24) | color;
 }

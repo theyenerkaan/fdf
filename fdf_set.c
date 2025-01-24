@@ -6,26 +6,11 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:23:11 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/23 21:14:17 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/24 22:44:21 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	set_point(t_mpoint *point, char *value, int i, int j,
-					t_map *map, int x_offset, int y_offset)
-{
-	double	z_value;
-
-	z_value = (double)ft_atoi(value) * map->interval;
-	point->x = (double)j * map->interval - x_offset;
-	point->y = (double)i * map->interval - y_offset;
-	point->z = z_value;
-	point->mapcolor = parse_color(0, map, value);
-
-	// map->high = INT_MAX;
-	// map->deep = INT_MIN;
-}
 
 #include "stdio.h"
 void	set_columns(int fd, t_map *map, char **split, int i)
@@ -49,8 +34,6 @@ void	set_columns(int fd, t_map *map, char **split, int i)
 		map->high = ft_max(map->high, point->z);
 		map->deep = ft_min(map->deep, point->z);
 		point->mapcolor = parse_color(fd, map, split[j]);
-		printf("fd %d\n", fd);
-		printf("point->x: %d\n", point->mapcolor);
 	}
 }
 
@@ -81,7 +64,7 @@ void	set_map(int fd, t_map *map)
 		i++;
 	}
 }
-
+#include "stdio.h"
 static int	get_line(int fd, t_map *map, char *line)
 {
 	char 	*tmp;
@@ -89,6 +72,8 @@ static int	get_line(int fd, t_map *map, char *line)
 	int 	i;
 
 	i = 0;
+	map->mhigh = 0;
+	map->mdeep = 0;
 	tmp = ft_strtrim(line, "\n");
 	if (!tmp)
 		error_map(fd, map, "Failed to allocate memory for line");
@@ -99,12 +84,15 @@ static int	get_line(int fd, t_map *map, char *line)
 	{
 		map->high = ft_max(map->high, ft_atoi(split[i]));
 		map->deep = ft_min(map->deep, ft_atoi(split[i]));
+		if (map->high > map->mhigh)
+			map->mhigh = map->high;
+		if (map->deep < map->mdeep)
+			map->mdeep = map->deep;
 		i++;
 	}
 	ft_free_split((void **)split, i);
 	return (free(line), free(tmp), i);
 }
-#include "stdio.h"
 
 void	set_size(int fd, t_map *map)
 {
@@ -114,7 +102,6 @@ void	set_size(int fd, t_map *map)
 	if (!line)
 		error_map(fd, map, "Failed to read map file");
 	map->cols = get_line(fd, map, line);
-	printf("map->cols: %d\n", map->cols);
 	if(map->cols == 0)
 		error_map(fd, map, "Invalid map");
 	map->rows = 1;

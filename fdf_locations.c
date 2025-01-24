@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 22:08:09 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/23 21:10:46 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/24 22:13:39 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,24 @@ void	z_location(double *x, double *y, double gamma)
 	*x = appearance_x * cos(gamma) - *y * sin(gamma);
 	*y = appearance_x * sin(gamma) + *y * cos(gamma);
 }
+// int	choise_color(t_point instant, t_point a, t_point b)
+// {
+// 	int		red;
+// 	int		green;
+// 	int		blue;
+// 	double	percentage;
+
+// 	if (a.rgba == b.rgba)
+// 		return (a.rgba);
+// 	if (abs(b.x - a.x) > abs(b.y - a.y))
+// 		percentage = percent(a.x, b.x, instant.x);
+// 	else
+// 		percentage = percent(a.y, b.y, instant.y);
+// 	red = radiant((a.rgba >> 24) & 0xFF, (b.rgba >> 24) & 0xFF, percentage);
+// 	green = radiant((a.rgba >> 16) & 0xFF, (b.rgba >> 16) & 0xFF, percentage);
+// 	blue = radiant((a.rgba >> 8) & 0xFF, (b.rgba >> 8) & 0xFF, percentage);
+// 	return ((red << 24) | (green << 16) | blue << 8 | 0xFF);
+// }
 int	choise_color(t_point instant, t_point a, t_point b)
 {
 	int		red;
@@ -55,7 +73,6 @@ int	choise_color(t_point instant, t_point a, t_point b)
 	blue = radiant((a.rgba >> 8) & 0xFF, (b.rgba >> 8) & 0xFF, percentage);
 	return ((red << 24) | (green << 16) | blue << 8 | 0xFF);
 }
-
 
 // int	choise_color(t_point instant, t_point a, t_point b)
 // {
