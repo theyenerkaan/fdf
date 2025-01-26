@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 20:00:40 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/26 03:01:57 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/26 04:42:51 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	map_view(void *view)
 		fdf->map->y_offset -= 5;
 	if (fdf->keys[XK_Down])
 		fdf->map->y_offset += 5;
-	if (fdf->keys[XK_equal]) // '='
+	if (fdf->keys[XK_asterisk]) // '='
 		fdf->map->zoom -= 0.02;
 	if (fdf->keys[XK_minus]) // '-'
 		fdf->map->zoom += 0.02;
@@ -51,8 +51,6 @@ int	map_view(void *view)
 		fdf->map->zscale += 0.03;
 	if (fdf->keys[XK_g])
 		fdf->map->zscale -= 0.03;
-	if (fdf->keys[XK_slash]) // '/'
-		fdf->map->zscale = 0.03;
 	if (fdf->keys[XK_s])
 		fdf->map->x_rotate += 0.02;
 	if (fdf->keys[XK_d])

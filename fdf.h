@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/24 22:36:18 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/26 05:02:28 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@
 
 # define KEY_MAX		65535
 
-#define BACKGROUND		0x000000
-#define COLOR_1			0x551a8b
-#define COLOR_2			0x7d26cd
-#define COLOR_3			0x912cee
+#define BACKGROUND		0x00000000
+#define COLOR_1			0x551a8bff
+#define COLOR_2			0x7d26cdff
+#define COLOR_3			0x912ceeff
 #define COLOR_4			0xfdae61ff
 #define COLOR_5			0xfee08bff
 #define COLOR_6			0xe6f598ff
@@ -124,7 +124,7 @@ void	set_point(t_mpoint *point, char *value, int i, int j,
 					t_map *map, int x_offset, int y_offset);
 void	set_columns(int fd, t_map *map, char **split, int i);
 int		ft_atoi_base(const char *nptr, const char *base);
-void	set_menu(void *mlx, void *win);
+int		set_menu(t_fdf *fdf);
 int		map_view(void *view);
 int		rotate_view(void *view);
 void	default_view(t_map *map);

@@ -6,13 +6,12 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:23:11 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/24 22:44:21 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/26 04:55:44 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-#include "stdio.h"
 void	set_columns(int fd, t_map *map, char **split, int i)
 {
 	t_mpoint	*point;
@@ -64,7 +63,6 @@ void	set_map(int fd, t_map *map)
 		i++;
 	}
 }
-#include "stdio.h"
 static int	get_line(int fd, t_map *map, char *line)
 {
 	char 	*tmp;

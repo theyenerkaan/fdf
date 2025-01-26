@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:04 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/26 03:02:08 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/26 04:46:52 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,6 @@ static void	alloc_grid(t_map *map)
             error_exit("Failed to allocate memory for map grid");
         }
     }
-}
-
-void	set_zoom(t_map *map)
-{
-	int maxheight;
-	
-	if (map->mdeep < 0)
-		map->mdeep *= -1;
-	if (map->mhigh > map->mdeep)
-		maxheight = map->mhigh;
-	else
-		maxheight = map->mdeep;
-	
-	if (maxheight > 20)
-		map->zoom = 0.2;
-	else if (maxheight > 10)
-		map->zoom = 0.5;
-	else
-		map->zoom = 1;
-	ft_printf("maxheight: %d\n", maxheight);
-	
 }
 
 void	filling_map(t_map *map)
@@ -150,7 +129,6 @@ int	main(int ac, char **av)
 	clear_keys(fdf->keys, 0);
 	mlx_hook(fdf->win, 2, 1L << 0, &key_press, fdf);   /* Key press event  */
 	mlx_hook(fdf->win, 3, 1L << 1, &key_release, fdf); /* Key release event*/
-	set_menu(fdf->mlx, fdf->win);
 	image_view(fdf);
 	if (mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0) == -1)
 	{
