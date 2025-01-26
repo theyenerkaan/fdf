@@ -6,7 +6,7 @@
 #    By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 19:15:35 by yenyilma          #+#    #+#              #
-#    Updated: 2025/01/26 15:27:04 by yenyilma         ###   ########.fr        #
+#    Updated: 2025/01/26 17:24:18 by yenyilma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@
 ###############################################
 
 NAME                =   fdf
+BNAME				=	fdf_bonus
 HEADER              =   fdf.h
 CC                  =   cc
 CFLAGS              =   -Wall -Wextra -Werror -g
@@ -33,8 +34,16 @@ SRC                 =   fdf_main.c fdf_alloc_free.c fdf_axis_locations.c \
                         fdf_parse_color.c fdf_parse_map.c fdf_set_menu.c \
                         fdf_utils.c ft_atoi_base.c ft_max.c ft_min.c \
                         $(GNL)
+BSRC				=	fdf_main_bonus.c fdf_alloc_free_bonus.c fdf_axis_locations_bonus.c \
+                        fdf_draw_win_bonus.c fdf_error_check_bonus.c fdf_init_map_bonus.c \
+                        fdf_key_utils_bonus.c fdf_loop_hook_bonus.c fdf_map_view_bonus.c \
+                        fdf_parse_color_bonus.c fdf_parse_map_bonus.c fdf_set_menu_bonus.c \
+                        fdf_utils_bonus.c ft_atoi_base_bonus.c ft_max_bonus.c ft_min_bonus.c \
+                        $(GNL)
+
 
 OBJ                 =   $(SRC:.c=.o)
+BOBJ				=	$(BSRC:.c=.o)
 ###############################################
 #                 COLORS                       #
 ###############################################
@@ -114,16 +123,25 @@ update:
 	@cd mlx && git pull
 	@echo "$(COLOR_RESET)"
 
-bonus: all 
+bonus: all $(BNAME)
+
+$(BNAME): $(LIBFT) $(PRINTF) $(GNL) $(MLX) $(BOBJ) $(HEADER) 
+	$(CC) $(CFLAGS) $(BOBJ) $(LIBFT) $(PRINTF) $(MLX) -lm -lXext -lX11 -o $(BNAME)
+	@echo "$(COLOR_BOLD_GREEN)✔ Bonus compilation complete!$(COLOR_RESET)"
 
 valgrind_fdf: $(NAME)
 	@echo "$(COLOR_BOLD_CYAN)🔍 Running Valgrind for memory leaks...$(COLOR_RESET)"
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --log-file=valgrind_fdf_out.txt ./$(NAME) $(ARGS)
 	@echo "$(COLOR_BOLD_GREEN)✔ Valgrind check completed. See valgrind_fdf_out.txt$(COLOR_RESET)"
 
+valgrind_bonus: $(BNAME)
+	@echo "$(COLOR_BOLD_CYAN)🔍 Running Valgrind for memory leaks...$(COLOR_RESET)"
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --log-file=valgrind_bonus_out.txt ./$(BNAME) $(ARGS)
+	@echo "$(COLOR_BOLD_GREEN)✔ Valgrind check completed. See valgrind_bonus_out.txt$(COLOR_RESET)"
+
 clean:
 	@echo "$(COLOR_LIGHT_RED)🧹 Cleaning object files...$(COLOR_RESET)"
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ) $(BOBJ)
 	@make clean -C $(LIBFTDIR) > /dev/null 2>&1
 	@make clean -C $(PRINTFDIR) > /dev/null 2>&1
 	@make clean -C $(MLXDIR) > /dev/null 2>&1
@@ -131,11 +149,14 @@ clean:
 
 fclean: clean
 	@echo "$(COLOR_LIGHT_RED)🧹 removing object files and executables...$(COLOR_RESET)"
-	@rm -rf $(NAME)
+	@rm -rf $(NAME) $(BNAME)
 	@make fclean -C libft > /dev/null 2>&1
 	@make fclean -C printf > /dev/null 2>&1
 	@make clean -C mlx > /dev/null 2>&1
 	@echo "$(COLOR_LIGHT_RED)🧹 all object files and executables removed.$(COLOR_RESET)"
+
+clear: fclean
+	@rm -rf get_next_line libft printf mlx
 
 re: fclean all
 	@echo "$(COLOR_BOLD_GREEN)♻️  recompiled successfully... $(COLOR_RESET)" 
