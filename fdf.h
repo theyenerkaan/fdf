@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/26 05:02:28 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/26 11:17:55 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,15 @@ typedef struct s_map
 	t_point			**grid;
 }								t_map;
 
+typedef struct s_menu_params
+{
+	int x;
+	int y;
+	int width;
+	int color;
+}								t_menu_params;
+
+
 typedef struct s_fdf
 {
 	void	*mlx;
@@ -107,43 +116,74 @@ typedef struct s_fdf
 }								t_fdf;
 
 
-int		choise_color(t_point instant, t_point a, t_point b);
-void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color);
-int		valid_map(const char *mapname);
-void	error_exit(const char *msg);
-void	set_size(int fd, t_map *map);
-void	error_map(int fd, t_map *map, const char *msg);
+
+void	alloc_grid(t_map *map);
+void	free_map(t_map *map);
+void	ft_free_split(void **split, size_t len);
+t_map	*parse_map(char *mapname);
+int		ft_atoi_base(const char *nptr, const char *base);
 int		ft_max(int a, int b);
 int		ft_min(int a, int b);
-void	ft_free_split(void **split, size_t len);
-void	free_map(t_map *map);
-void	set_map(int fd, t_map *map);
-void	set_color(t_map *map);
-int		parse_color(int fd, t_map *map, char *value);
-void	set_point(t_mpoint *point, char *value, int i, int j,
-					t_map *map, int x_offset, int y_offset);
+int		valid_map(const char *mapname);
+void	error_map(int fd, t_map *map, const char *msg);
+void	error_exit(const char *msg);
+int		get_line(int fd, t_map *map, char *line);
 void	set_columns(int fd, t_map *map, char **split, int i);
-int		ft_atoi_base(const char *nptr, const char *base);
-int		set_menu(t_fdf *fdf);
+double	percent(int start, int end, int current);
+int		get_palette_color(double perc);
+void	clear_keys(int *keys, int size);
+int		key_release(int keycode, void *param);
+int		key_press(int keycode, void *param);
+void	image_view(void *view);
+void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color);
+int		choise_color(t_point instant, t_point a, t_point b);
+int		loop_full(void *view);
 int		map_view(void *view);
 int		rotate_view(void *view);
-void	default_view(t_map *map);
-void	image_view(void *view);
-double	percent(int start, int end, int current);
-int		radiant(int start, int end, double percentage);
-void	draw_background(t_fdf *base, int color);
-void	projection(t_map *map, int i, int j);
-void	draw_line(t_fdf *fdf, int x, int y);
+int		set_menu(t_fdf *fdf);
+int		parse_color(int fd, t_map *map, char *value);
 void	x_location(double *y, double *z, double alpha);
 void	y_location(double *x, double *z, double beta);
 void	z_location(double *x, double *y, double gamma);
-void	two_points_draw_line(t_fdf *view, t_point a, t_point b);
-int		kaan(void *view);
-int		key_press(int keycode, void *win);
-int		key_release(int keycode, void *win);
-void	clear_keys(int *keys, int index);
-int		interpolate_color(int start, int end, double t);
-int		get_palette_color(double pers);
+
+
+
+
+
+
+
+
+// int		choise_color(t_point instant, t_point a, t_point b);
+// void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color);
+// int		valid_map(const char *mapname);
+// void	error_exit(const char *msg);
+// void	set_size(int fd, t_map *map);
+// void	error_map(int fd, t_map *map, const char *msg);
+// int		ft_max(int a, int b);
+// int		ft_min(int a, int b);
+// void	ft_free_split(void **split, size_t len);
+// void	free_map(t_map *map);
+// void	set_map(int fd, t_map *map);
+// void	set_color(t_map *map);
+// void	set_point(t_mpoint *point, char *value, int i, int j,
+// 					t_map *map, int x_offset, int y_offset);
+// void	set_columns(int fd, t_map *map, char **split, int i);
+// int		ft_atoi_base(const char *nptr, const char *base);
+// int		rotate_view(void *view);
+// void	default_view(t_map *map);
+// void	image_view(void *view);
+// double	percent(int start, int end, int current);
+// int		radiant(int start, int end, double percentage);
+// void	draw_background(t_fdf *base, int color);
+// void	projection(t_map *map, int i, int j);
+// void	draw_line(t_fdf *fdf, int x, int y);
+// void	two_points_draw_line(t_fdf *view, t_point a, t_point b);
+// int		kaan(void *view);
+// int		key_press(int keycode, void *win);
+// int		key_release(int keycode, void *win);
+// void	clear_keys(int *keys, int index);
+// int		interpolate_color(int start, int end, double t);
+// int		get_palette_color(double pers);
 
 #endif
  

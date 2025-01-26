@@ -6,7 +6,7 @@
 #    By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 19:15:35 by yenyilma          #+#    #+#              #
-#    Updated: 2025/01/23 17:46:57 by yenyilma         ###   ########.fr        #
+#    Updated: 2025/01/26 10:26:36 by yenyilma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ COLOR_RESET         =   \033[0m
 ###############################################
 
 all:
-		cc fdf.c fdf_error_msg.c fdf_keycode.c fdf_locations.c fdf_map.c fdf_set.c fdf_set_color.c fdf_utils.c ft_max.c ft_min.c ft_atoi_base.c libft/libft.a printf/libftprintf.a get_next_line/get_next_line.c get_next_line/get_next_line_utils.c mlx/libmlx.a -lm -lXext -lX11 -g -o fdf
+	cc fdf_alloc_free.c fdf_axis_locations.c fdf_draw_win.c fdf_error_check.c fdf_init_map.c fdf_key_utils.c fdf_loop_hook.c fdf_main.c fdf_map_view.c fdf_parse_color.c fdf_parse_map.c fdf_set_menu.c fdf_utils.c ft_atoi_base.c ft_max.c ft_min.c libft/libft.a printf/libftprintf.a get_next_line/get_next_line.c get_next_line/get_next_line_utils.c mlx/libmlx.a -lm -lXext -lX11 -g -o fdf
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -I $(LIBFTDIR) -I $(PRINTFDIR) -I $(GNLDIR) -c $< -o $@
