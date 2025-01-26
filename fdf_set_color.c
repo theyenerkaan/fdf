@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 05:26:27 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/24 22:22:23 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/26 03:01:42 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	parse_color(int fd, t_map *map, char *split)
 	if (*split == ',')
 		split++;
 	else
-		return (0xFFFFFFFF);
+		return (0x808080);
 	if ((ft_strncmp(split, "0X", 2) && ft_strncmp(split, "0x", 2)))
 		error_map(fd, map, "Invalid color format");
 	split += 2;

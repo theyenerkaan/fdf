@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:04 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/24 22:52:55 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/26 03:02:08 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	filling_map(t_map *map)
 	map->x_rotate = 0;
 	map->y_rotate = 0;
 	map->z_rotate = 0;
-	map->zoom = 1;
+	map->zoom = 0;
 	map->zscale = 1;
 	map->mgrid = NULL;
 	map->grid = NULL;
