@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:39:50 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/26 11:17:55 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/26 13:35:34 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,19 @@
 # define KEY_MAX		65535
 
 #define BACKGROUND		0x00000000
-#define COLOR_1			0x551a8bff
-#define COLOR_2			0x7d26cdff
-#define COLOR_3			0x912ceeff
-#define COLOR_4			0xfdae61ff
-#define COLOR_5			0xfee08bff
-#define COLOR_6			0xe6f598ff
-#define COLOR_7			0xabdda4ff
-#define COLOR_8			0x66c2a5ff
-#define COLOR_9			0x3288bdff
-#define COLOR_10		0xb432d2ff
-#define COLOR_11		0xa028c8ff
+#define COLOR_1			0xFF8A2BE2  // Mavi-Mor (BlueViolet)
+#define COLOR_2			0xFF9400D3  // Koyu Mor (DarkViolet)
+#define COLOR_3			0xFF8B00FF  // Neon Mor
+#define COLOR_4			0xFF6A0DAD  // Derin Mor (Purple)
+#define COLOR_5			0xFFD700FF  // Neon Pembe (Deep Pink)
+#define COLOR_6			0xFFFF1493  // Neon Pembe (Deep Pink)
+#define COLOR_7			0xFFFF69B4  // Açık Pembe (Hot Pink)
+#define COLOR_8			0xFFC71585  // Orta Pembe (Medium Violet Red)
+#define COLOR_9			0xFF7B68EE  // Açık Mor (Medium Slate Blue)
+#define COLOR_10		0xFF4169E1  // Koyu Mavi (Royal Blue)
+#define COLOR_11		0xFF00FFFF  // Neon Mavi (Cyan)
+
+
 
 typedef	enum s_bool
 {
@@ -99,6 +101,8 @@ typedef struct s_menu_params
 	int y;
 	int width;
 	int color;
+	int spacing;
+	int padding;
 }								t_menu_params;
 
 

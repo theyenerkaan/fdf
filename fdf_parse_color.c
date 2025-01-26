@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:23:11 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/26 11:22:58 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/26 13:17:10 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	parse_color(int fd, t_map *map, char *split)
 		error_map(fd, map, "Invalid color format");
 	split += 2;
 	ft_striteri(split, &make_upper);
-	return ((ft_atoi_base(split, "0123456789ABCDEF")) << 8 | 0xFF);
+	return ((ft_atoi_base(split, "0123456789ABCDEF")) | 0xFF << 24);
 }
 
 int	get_palette_color(double perc)

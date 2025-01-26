@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 22:15:06 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/26 10:06:36 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/26 13:18:26 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	choise_color(t_point instant, t_point a, t_point b)
 		percentage = percent(a.x, b.x, instant.x);
 	else
 		percentage = percent(a.y, b.y, instant.y);
-	red = radiant((a.rgba >> 24) & 0xFF, (b.rgba >> 24) & 0xFF, percentage);
-	green = radiant((a.rgba >> 16) & 0xFF, (b.rgba >> 16) & 0xFF, percentage);
-	blue = radiant((a.rgba >> 8) & 0xFF, (b.rgba >> 8) & 0xFF, percentage);
-	return ((red << 24) | (green << 16) | blue << 8 | 0xFF);
+	red = radiant((a.rgba >> 16) & 0xFF, (b.rgba >> 16) & 0xFF, percentage);
+	green = radiant((a.rgba >> 8) & 0xFF, (b.rgba >> 8) & 0xFF, percentage);
+	blue = radiant((a.rgba) & 0xFF, (b.rgba) & 0xFF, percentage);
+	return ((0xFF << 24) | (red << 16) | (green << 8) | blue);
 }
 
 void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)
@@ -55,6 +55,5 @@ void	my_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)
 	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 		return ;
 	dst = fdf->addr + (y * fdf->line_len + x * (fdf->bpp / 8));
-	*(unsigned int *)dst = (0xFF << 24) | ((color >> 16) & 0xFF)
-		| (color & 0x00FF00) | ((color & 0xFF) << 16);
+	*(unsigned int *)dst = color;
 }
