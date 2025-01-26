@@ -6,7 +6,7 @@
 #    By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 19:15:35 by yenyilma          #+#    #+#              #
-#    Updated: 2025/01/26 14:34:24 by yenyilma         ###   ########.fr        #
+#    Updated: 2025/01/26 15:27:04 by yenyilma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -138,4 +138,4 @@ fclean: clean
 	@echo "$(COLOR_LIGHT_RED)🧹 all object files and executables removed.$(COLOR_RESET)"
 
 re: fclean all
-	@echo "$(COLOR_BOLD_GREEN)♻️  recompiled successfully... $(COLOR_RESET)"
+	@echo "$(COLOR_BOLD_GREEN)♻️  recompiled successfully... $(COLOR_RESET)" 
