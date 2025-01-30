@@ -6,7 +6,7 @@
 #    By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 19:15:35 by yenyilma          #+#    #+#              #
-#    Updated: 2025/01/26 17:24:18 by yenyilma         ###   ########.fr        #
+#    Updated: 2025/01/30 14:37:22 by yenyilma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@
 NAME                =   fdf
 BNAME				=	fdf_bonus
 HEADER              =   fdf.h
+BHEADER				=	fdf_bonus.h
 CC                  =   cc
 CFLAGS              =   -Wall -Wextra -Werror -g
 LIBFT               =   libft/libft.a
@@ -27,6 +28,7 @@ GNL                 =   get_next_line/get_next_line.c get_next_line/get_next_lin
 GNLDIR              =   get_next_line
 MLX                 =   mlx/libmlx.a
 MLXDIR              =   mlx
+MAPS				=   maps
 
 SRC                 =   fdf_main.c fdf_alloc_free.c fdf_axis_locations.c \
                         fdf_draw_win.c fdf_error_check.c fdf_init_map.c \
@@ -71,7 +73,7 @@ COLOR_RESET         =   \033[0m
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(PRINTF) $(GNL) $(MLX) $(OBJ) $(HEADER) 
+$(NAME): $(LIBFT) $(PRINTF) $(GNL) $(MLX) $(MAPS) $(OBJ) $(HEADER)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(PRINTF) $(MLX) -lm -lXext -lX11 -o $(NAME)
 	@echo "$(COLOR_BOLD_GREEN)✔ Compilation complete!$(COLOR_RESET)"
 
@@ -114,6 +116,12 @@ $(MLXDIR):
 	@git clone https://github.com/42Paris/minilibx-linux.git mlx
 	@echo "$(COLOR_RESET)"
 
+$(MAPS):
+	@echo "$(COLOR_BOLD_CYAN)🌀 cloning maps repository...$(COLOR_RESET)"
+	@echo "$(COLOR_CYAN)"
+	@git clone git@github.com:theyenerkaan/maps.git maps
+	@echo "$(COLOR_RESET)"
+
 update:
 	@echo "$(COLOR_BOLD_CYAN)🌀 updating all repositories...$(COLOR_RESET)"
 	@echo "$(COLOR_BOLD_RED)"
@@ -125,7 +133,7 @@ update:
 
 bonus: all $(BNAME)
 
-$(BNAME): $(LIBFT) $(PRINTF) $(GNL) $(MLX) $(BOBJ) $(HEADER) 
+$(BNAME): $(LIBFT) $(PRINTF) $(GNL) $(MLX) $(MAPS) $(BOBJ) $(BHEADER)
 	$(CC) $(CFLAGS) $(BOBJ) $(LIBFT) $(PRINTF) $(MLX) -lm -lXext -lX11 -o $(BNAME)
 	@echo "$(COLOR_BOLD_GREEN)✔ Bonus compilation complete!$(COLOR_RESET)"
 
@@ -156,7 +164,11 @@ fclean: clean
 	@echo "$(COLOR_LIGHT_RED)🧹 all object files and executables removed.$(COLOR_RESET)"
 
 clear: fclean
-	@rm -rf get_next_line libft printf mlx
+	@rm -rf get_next_line libft printf mlx maps
+
+norm:
+	@rm -rf mlx
+	norminette
 
 re: fclean all
 	@echo "$(COLOR_BOLD_GREEN)♻️  recompiled successfully... $(COLOR_RESET)" 

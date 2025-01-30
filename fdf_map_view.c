@@ -6,7 +6,7 @@
 /*   By: yenyilma <yyenerkaan1@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 20:00:40 by yenyilma          #+#    #+#             */
-/*   Updated: 2025/01/26 11:08:55 by yenyilma         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:39:36 by yenyilma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	default_view(t_map *map)
 	map->x_rotate = 0;
 	map->y_rotate = 0;
 	map->z_rotate = 0;
-	map->zoom = 0.1;
+	map->zoom = 1;
 	map->zscale = 1;
 }
 
